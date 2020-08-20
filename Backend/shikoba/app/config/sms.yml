@@ -1,0 +1,3 @@
+sms:
+  messages:
+    send: "was already send, please try signing in"

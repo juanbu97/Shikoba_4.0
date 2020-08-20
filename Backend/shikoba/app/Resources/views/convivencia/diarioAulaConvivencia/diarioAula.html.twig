@@ -1,0 +1,105 @@
+{#
+Vista del diario del aula de convivencia.
+Actualizado por GUBS, RAGZ, 2019
+#}
+{% extends 'base2.html.twig' %}
+{% block javascripts %}
+    <script>
+        $(document).ready(function() {
+            {% if diarioData.diariosAula == null %}
+                $("#warning").text("No existen datos para el día y/o las horas seleccionadas.");
+            {% else %}
+            $("#result").text("Mostrando los resultados.");
+            {% endif %}
+        });
+    </script>
+{% endblock %}
+
+{% block body %}
+    {% include 'convivencia/navegacion.html.twig' %}
+    <div class="">
+        <h3 class="center azul-prof fuente">Diario del aula de convivencia.</h3>
+        <form action="">
+            <div class="diarioSearch">
+                <div id="divfecha">
+                    <label for="diarioFechaSearchBar">Fecha</label>
+                    <input type="text" class="datepicker" name="likeFecha" id="diarioFechaSearchBar"
+                           value="{{ diarioData.fecha|date('d/m/Y') }}">
+                </div>
+                <div id="divhora">
+                    <label for="horasSelect">Horas</label>
+                    <select data-placeholder="Seleccione hora/s..." id="horasSelect"
+                            class="chosen-select col s12" name="likeHora[]"
+                            id="diarioHorasSearchBar" multiple>
+                        {% for key, hora in diarioData.horas %}
+                            {% if key in diarioData.horasElegidas %}
+                                <option value="{{ key }}" selected>{{ hora }}</option>
+                            {% else %}
+                                <option value="{{ key }}">{{ hora }}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                </div>
+                <div id="botonbus">
+                    <button class="z-depth-3 btn btn-floating blue darken-3 waves-effect waves-light"
+                            style="margin-top: 21%; margin-left: -5%" type="submit"
+                            value="Buscar" title="Buscar">
+                        <i class="material-icons right">search</i>
+                    </button>
+                </div>
+            </div>
+        </form>
+        {% if diarioData.diariosAula == null %}
+            <h5 class="center fuente" id="warning" style="margin: 50px auto"></h5>
+        {% else %}
+            <h5 class="center fuente" id="result" style="margin: 50px auto"></h5>
+            <div class="row" id="busq">
+                <table class="responsive-table highlight tableDataDiario z-depth-3" data-order='[[ 0, "desc" ]]'
+                       style="margin-bottom: 1%" data-page-length='10'>
+                    <thead>
+                        <tr class="blue darken-3 white-text">
+                            <th>Fecha</th>
+                            <th>Hora</th>
+                            <th>Alumnado</th>
+                            <th>Profesorado</th>
+                            <th>Observaciones</th>
+                            <th>Actitud</th>
+                            <th>Trabajo</th>
+                            <th>Asiste</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for diario in diarioData.diariosAula %}
+                        <tr>
+                            <td>{{ diario.fecha|date('d/m/Y') }}</td>
+                            <td>{{ diario.hora }}</td>
+                            <td>
+                                <a href="{{ path('verAlumno', {'id': diario.idSancion.idAlumno.id}) }}">{{ diario.idSancion.idAlumno.getNombreCompleto() }}</a>
+                            </td>
+                            {% if diario.idProfesor == null %}
+                                <td>Ningún profesor asignado</td>
+                            {% else %}
+                                <td>{{ diario.idProfesor.getNombreCompleto() }}</td>
+                            {% endif %}
+                            <td>{{ diario.observaciones }}</td>
+                            <td>{{ diario.actitud }}</td>
+                            <td>{{ diario.trabajo }}</td>
+                            {% if diario.asiste == 0 %}
+                                <td>Pendiente</td>
+                            {% else %}
+                                <td>Ha asistido</td>
+                            {% endif %}
+                            <td>
+                                <a href="{{ path('edit_diario', {'id': diario.id}) }}">
+                                    <i class="material-icons">edit</i>
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

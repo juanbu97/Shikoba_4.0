@@ -1,0 +1,33 @@
+{#
+Vista de alumno tutor.
+Actualizado por GUBS, RAGZ, 2019
+#}
+{% extends 'base2.html.twig' %}
+{% block body %}
+    {% include 'convivencia/navegacion.html.twig' %}
+    <div class="center">
+        <h3 class="center azul-prof fuente">Alumnos</h3>
+        <div class="row">
+            {% for alumno in alumnos %}
+                <div class="col s6 m4 l2 carta ancho">
+                    <div class="card">
+                        <div class="card-image">
+                            {% if alumno.foto == "" or alumno.foto == null %}
+                                <img src="{{ asset('img/alumnos/' ~ alumno.nie ~ '.PNG') }}"
+                                     alt="avatar">
+                            {% else %}
+                                <img src="{{ asset('img/alumnos/' ~ alumno.foto) }}" alt="avatar">
+
+                            {% endif %}
+                            <span class="card-title"></span>
+                        </div>
+
+                        <div class="card-action blue darken-1 ">
+                            <a href="{{ path("verAlumno", {'id': alumno.id}) }}">{{ alumno.getNombreCompleto() }}</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

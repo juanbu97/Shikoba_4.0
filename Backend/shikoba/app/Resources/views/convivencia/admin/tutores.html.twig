@@ -1,0 +1,69 @@
+{#
+Vista para la gestión de tutores.
+Creado por GUBS, RAGZ, 2019
+#}
+{% extends 'base2.html.twig' %}
+
+{% block body %}
+    {% include 'convivencia/navegacion.html.twig' %}
+    <div class="">
+        <h3 class="center azul-prof fuente">Gestión tutores</h3>
+        <div class="col s12 l5 offset-l5 center">
+            {% for flash_message in app.session.flashBag.get('tutor') %}
+                <div class="card-panel green white-text flash">
+                    <span class="spancaja">{{ flash_message }} </span><i class="material-icons spanico">done</i>
+                </div>
+            {% endfor %}
+            {% for flash_message in app.session.flashBag.get('tutorError') %}
+                <div class="card-panel red white-text flash">
+                    <span class="spancaja">{{ flash_message }}</span><i class="material-icons spanico">clear</i>
+                </div>
+            {% endfor %}
+        </div>
+        <form action="">
+            <div class="row" id="busq">
+                <div class="col s12 l6">
+                    <div class="row">
+                        <div class="i-checks col s12 right-align" style="margin-top: 8%;padding-left: 0;" id="aqui">
+                            <div class="" id="botonbus" style="margin-left: -5%;">
+                                {% if (is_granted('ROLE_ADMIN')) %}
+                                    <a id="parte" href="{{ path('admin_import_profesorGrupo') }}"
+                                       class="btn z-depth-3 blue darken-3 waves-effect waves-light"
+                                       title="Nuevo tutor">Nuevo<i class="material-icons right" style="margin-top: -2%;">add</i></a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <table class="responsive-table highlight tableData z-depth-3" data-order='[[ 1, "asc" ]]'
+                       style="margin-bottom: 1%" data-page-length='10'>
+                    <thead>
+                    <tr class="blue darken-3 white-text">
+                        <th>Profesor</th>
+                        <th>Grupo</th>
+                        <th class="noExport">Acciones</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for tutor in tutores %}
+                        <tr>
+                            <td>{{ tutor.nombre }} {{ tutor.apellido1 }} {{ tutor.apellido2 }}</td>
+                            <td>{{ tutor.grupo }}</td>
+                            <td>
+                                <a class="confirm paddingRightLeft "
+                                   href="{{ path('borrarTutor', {'grupo': tutor.grupo}) }}"
+                                   data-title="Eliminar tutor"
+                                   data-content="Se va a eliminar la actual asignación, ¿desea continuar?">
+                                    <i class="material-icons ">delete</i>
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </form>
+    </div>
+{% endblock %}

@@ -1,0 +1,113 @@
+{#
+Vista de sanciones.
+Actualizado por GUBS, RAGZ, 2019
+#}
+{% extends 'base2.html.twig' %}
+
+{% block body %}
+    {% include 'convivencia/navegacion.html.twig' %}
+
+    <div class="">
+        <h3 class="center azul-prof fuente">Sanciones</h3>
+
+        <div class="col s12 l5 offset-l5 center">
+            {% for flash_message in app.session.flashBag.get('sancion') %}
+                <div class="card-panel green white-text flash">
+                    <span class="spancaja">{{ flash_message }} </span><i class="material-icons spanico">done</i>
+                </div>
+            {% endfor %}
+
+            {% for flash_message in app.session.flashBag.get('sancionError') %}
+                <div class="card-panel red white-text flash">
+                    <span class="spancaja">{{ flash_message }}</span> <i class="material-icons spanico">clear</i>
+                </div>
+            {% endfor %}
+        </div>
+
+        <form action="">
+            <div class="row" id="busq">
+
+                <div class="col s12 l6">
+                    <div class="row">
+                        {# <div class="i-checks col s6 center l3 right-align" style="margin-top: 2%;padding-left: 0;"> #}
+                        <div class="i-checks col s12 right-align" style="margin-top: 8%;padding-left: 0;" id="aqui">
+                            {# Deshabilitamos el histórico"> #}
+                            {# {% if app.request.get('historico') == 'on' %}
+                                 <input type="checkbox" name="historico" checked>
+                             {% else %}
+                                 <input type="checkbox" name="historico">
+                             {% endif %}
+                             <span style="float:left;margin-top: 4%;"> Histórico</span>#}
+                            <div class="" id="botonbus" style="margin-left: -5%;">
+                                {# Deshabilitamos el buscador del histórico"> #}
+                                {#<button class="z-depth-3 btn btn-floating blue darken-3 waves-effect waves-light"
+                                        type="submit"
+                                        value="Buscar" title="Buscar">
+                                        <i class="material-icons right">search</i></button>#}
+                                {% if (is_granted('ROLE_ADMIN') or is_granted('ROLE_CONVIVENCIA')) %}
+                                    <a id="parte" href="{{ path('nueva_sancion') }}"
+                                       class="btn z-depth-3 blue darken-3 waves-effect waves-light"
+                                       title="Nueva sanción">Nueva
+                                        <i class="material-icons right">add</i></a>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="col s2 l1">
+                            {# <a href="{{ path('export_form_sanciones') }}" #}
+                            {# class="btn z-depth-3  btn-floating blue darken-3 waves-effect waves-light" #}
+                            {# title="Exportar">
+                            {# <i class="material-icons">get_app</i></a>#}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <table class="tableDataMedidas responsive-table highlight z-depth-3" data-order='[[ 1, "desc" ]]'
+                       style="margin-bottom: 1%" data-page-length='10'>
+                    <thead>
+                    <tr class="blue darken-3 white-text">
+                        <th class="noExport">NumSanción</th>
+                        <th>Fecha</th>
+                        <th>Alumnado</th>
+                        <th>Fecha Inicio</th>
+                        <th>Fecha Final</th>
+                        <th>Tipo</th>
+                        {#<th>Puntos</th>#}
+                        <th>Estado</th>
+                        <th class="noExport">Acciones</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for sancion in sanciones %}
+                        <tr>
+                            <td>{{ sancion.id }}</td>
+                            <td>{{ sancion.fecha|date("d/m/Y") }}</td>
+                            <td>
+                                <a href="{{ path('verAlumno', {'id': sancion.idAlumno.id}) }}">{{ sancion.idAlumno.getNombreCompleto() }}</a>
+                            </td>
+                            <td>{{ sancion.fechaInicio|date("d/m/Y") }}</td>
+                            <td>{{ sancion.fechaFinal|date("d/m/Y") }}</td>
+                            <td>{{ sancion.idTipo.tipo }}</td>
+                            {#<td>{{ sancion.puntosRecuperados }}</td>#}
+                            <td>{{ sancion.idEstado.estado }}</td>
+                            {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_CONVIVENCIA') %}
+                                <td><a href="{{ path('nueva_sancion') }}?idSancion={{ sancion.id }}">
+                                        <i class="material-icons">edit</i></a>
+                                    <a class="confirm paddingRightLeft "
+                                       href="{{ path('borrar_sancion', {'id': sancion.id}) }}"
+                                       data-title="Eliminar sanción" data-content="Se va proceder a eliminar la sanción, ¿desea continuar?"><i class="material-icons ">delete</i></a>
+                                </td>
+                            {% else %}
+                                <td></td>
+                            {% endif %}
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {# <div class="paginator w3-col m12"> #}
+            {# {{ knp_pagination_render(sanciones) }} #}
+            {# </div> #}
+        </form>
+    </div>
+{% endblock %}

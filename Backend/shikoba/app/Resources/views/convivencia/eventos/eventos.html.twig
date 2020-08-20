@@ -1,0 +1,79 @@
+{% extends "base2.html.twig" %}
+{% block stylesheets %}
+	{{ parent() }}
+	<style>
+		#resultados-contenido {
+			border: 1px solid black;
+			padding: 30px;
+			border-radius: 20px;
+			box-shadow: 10px 11px 4px -6px rgba(0, 0, 0, 0.37);
+			margin-bottom: 25px;
+		}
+	</style>
+{% endblock %}
+{% block body %}
+	{% include "convivencia/navegacion.html.twig" %}
+	<div class="">
+		<h3 class="center azul-prof fuente">Eventos</h3>
+		<div class="row center">
+			<a href="{{ path('nuevoEvento') }}" class="btn z-depth-3 blue darken-3 waves-effect waves-light" title="Nueva noticia">Nuevo Evento<i class="material-icons right" style="margin-top: -2%;">add</i>
+			</a>
+		</div>
+		<div class="col s12 l5 offset-l5 center">
+			{% for flash_message in app.session.flashBag.get('evento') %}
+				<div class="card-panel green white-text flash">
+					<span class="spancaja">{{ flash_message }}
+					</span>
+					<i class="material-icons spanico">done</i>
+				</div>
+			{% endfor %}
+
+			{% for flash_message in app.session.flashBag.get('eventoError') %}
+				<div class="card-panel red white-text flash">
+					<span class="spancaja">{{ flash_message }}</span>
+					<i class="material-icons spanico">clear</i>
+				</div>
+			{% endfor %}
+
+		</div>
+		<div class="divider3"></div>
+		<div style="width: 100%; display: grid; grid-template-columns: repeat(2, 50%); gap: 20px; text-align: center; padding: 6%; margin-top: -40px">
+            {% for evento in eventos %}
+                <div id="resultados-contenido" style="margin-right:4%; margin-left:4%">
+					<div class="col-content">
+						<div style="display: flex; justify-content: space-between; align-self: center;">
+							<div>
+								<p style="display:inline-block;" id="titulo">
+									<b>Titulo:
+									</b>
+									{{ evento.descripcion  }}</p>
+								<p style="display:inline-block" id="fechaInicio">
+									<b>Fecha Inicio:
+									</b>
+									{{ evento.fechaInicio | date("Y/m/d") }}</p>
+								<p style="display:inline-block" id="fechaFinal">
+									<b>Fecha Final:
+									</b>
+									{{ evento.fechaFinal | date("Y/m/d") }}</p>
+							</div>
+							<div>
+								{% if is_granted('ROLE_CONVIVENCIA') %}
+									<p style="display:inline-block">
+										<a href="{{ path('editEvento', {'id': evento.id}) }}">
+											<i class="material-icons">edit</i>
+										</a>
+									</p>
+									<p style="display:inline-block">
+										<a class="confirm paddingRightLeft" href="{{ path('borrarEvento', {'id': evento.id}) }}" data-content="Se va a eliminar el evento, ¿desea continuar?" data-title="Eliminar evento">
+											<i class="material-icons ">delete</i>
+										</a>
+									</p>
+								{% endif %}
+							</div>
+						</div>
+					</div>
+				</div>
+			{% endfor %}
+		</div>
+	</div>
+{% endblock %}

@@ -1,0 +1,97 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * TutoresAlumnos
+ *
+ * @ORM\Table(name="tutores_alumnos")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\TutoresAlumnosRepository")
+ */
+class TutoresAlumnos
+{
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="idTutor", type="integer")
+     */
+    private $idTutor;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="idAlumno", type="integer")
+     */
+    private $idAlumno;
+
+
+    /**
+     * Get id
+     *
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set idTutor
+     *
+     * @param integer $idTutor
+     *
+     * @return TutoresAlumnos
+     */
+    public function setIdTutor($idTutor)
+    {
+        $this->idTutor = $idTutor;
+
+        return $this;
+    }
+
+    /**
+     * Get idTutor
+     *
+     * @return int
+     */
+    public function getIdTutor()
+    {
+        return $this->idTutor;
+    }
+
+    /**
+     * Set idAlumno
+     *
+     * @param integer $idAlumno
+     *
+     * @return TutoresAlumnos
+     */
+    public function setIdAlumno($idAlumno)
+    {
+        $this->idAlumno = $idAlumno;
+
+        return $this;
+    }
+
+    /**
+     * Get idAlumno
+     *
+     * @return int
+     */
+    public function getIdAlumno()
+    {
+        return $this->idAlumno;
+    }
+}
+

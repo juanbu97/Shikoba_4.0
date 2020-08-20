@@ -1,0 +1,65 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * EstadosSancion
+ *
+ * @ORM\Table(name="estados_sancion")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\EstadosSancionRepository")
+ */
+class EstadosSancion
+{
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="estado", type="string", length=255)
+     */
+    private $estado;
+
+
+    /**
+     * Get id
+     *
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set estado
+     *
+     * @param string $estado
+     *
+     * @return EstadosSancion
+     */
+    public function setEstado($estado)
+    {
+        $this->estado = $estado;
+
+        return $this;
+    }
+
+    /**
+     * Get estado
+     *
+     * @return string
+     */
+    public function getEstado()
+    {
+        return $this->estado;
+    }
+}

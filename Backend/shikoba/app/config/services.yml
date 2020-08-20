@@ -1,0 +1,42 @@
+# Learn more about services, parameters and containers at
+# http://symfony.com/doc/current/service_container.html
+parameters:
+#    parameter_name: value
+    app.file.twig.extension:
+        class: AppBundle\Twig\Extension\FileExtension
+
+
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: true
+    app.alumnoHelper:
+        class: AppBundle\Services\AlumnoHelper
+        arguments: ['@doctrine.orm.entity_manager']
+    app.importHelper:
+        class: AppBundle\Services\ImportHelper
+        arguments: ['@doctrine.orm.entity_manager', '@security.password_encoder']
+    app.crearSancionHelper:
+        class: AppBundle\Services\CrearSancionHelper
+        arguments: ['@doctrine.orm.entity_manager']
+    app.diarioHelper:
+        class: AppBundle\Services\DiarioHelper
+        arguments: ['@doctrine.orm.entity_manager']
+    app.partesHelper:
+        class: AppBundle\Services\PartesHelper
+        arguments: ['@doctrine.orm.entity_manager', '@app.crearSancionHelper']
+    app.smsHelper:
+        class: AppBundle\Services\SmsHelper
+    form.parteType:
+        class: AppBundle\Form\ParteFormType
+        arguments: ["@doctrine.orm.entity_manager"]
+        tags: [ name: ParteFormType ]
+    app.file.twig.extension:
+        class: AppBundle\Twig\Extension\FileExtension
+        tags: [ name: FileExtension ]
+    twig.extension:
+        class: AppBundle\Extensions\TwigExtensions
+        tags:
+            - { name: twig.extension }
+        

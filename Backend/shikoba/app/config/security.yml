@@ -1,0 +1,63 @@
+# To get started with security, check out the documentation:
+# http://symfony.com/doc/current/security.html
+security:
+
+    # http://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
+    providers:
+        user_provider:
+            entity:
+                class: AppBundle:Usuarios
+                property: usuario
+        in_memory:
+            memory: ~
+
+    encoders:
+        AppBundle\Entity\Usuarios:
+            algorithm: bcrypt
+
+    firewalls:
+        # disables authentication for assets and the profiler, adapt it according to your needs
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+
+        main:
+            remember_me:
+                secret:   '%secret%'
+                lifetime: 300
+                path:     /
+                # por defecto, esta funcionalidad está disponible en una
+                # checkbox en el formulario de login, descomenta la
+                # siguiente línea para activarlo siempre.
+                #always_remember_me: true
+            logout_on_user_change: true
+            provider: user_provider
+            anonymous: ~
+            form_login:
+                login_path: login
+                check_path: login
+            logout:
+                path: /logout
+                target: /login
+
+    access_control:
+        - { path: ^/login$, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/recuperarPassword, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/resetPassword, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/registro$, roles: ROLE_ADMIN }
+        - { path: ^/admin$, roles: [ROLE_ADMIN, ROLE_CONVIVENCIA] }
+        - { path: ^/admin, roles: [ROLE_ADMIN, ROLE_CONVIVENCIA] }
+        - { path: ^/partes$, roles: [ROLE_ADMIN, ROLE_CONVIVENCIA, ROLE_PROFESOR] }
+        - { path: ^/parte/, roles: [ROLE_ADMIN, ROLE_CONVIVENCIA, ROLE_PROFESOR] }
+        - { path: ^/sanciones$, roles: [ROLE_ADMIN, ROLE_CONVIVENCIA, ROLE_PROFESOR] }
+        - { path: ^/sancion/, roles: [ROLE_ADMIN, ROLE_CONVIVENCIA, ROLE_PROFESOR] }
+        - { path: ^/carnet/, roles: [ROLE_ADMIN, ROLE_CONVIVENCIA, ROLE_PROFESOR] }
+        - { path: ^/noticias$, roles: [ROLE_CONVIVENCIA] }
+        - { path: ^/, roles: ROLE_USER }
+            # activate different ways to authenticate
+
+            # http_basic: ~
+            # http://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
+
+            # form_login: ~
+            # http://symfony.com/doc/current/cookbook/security/form_login_setup.html

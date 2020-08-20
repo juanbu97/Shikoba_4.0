@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>{% block title %}Convivencia{% endblock %}</title>
+        {% block stylesheets %}
+            {# CSS #}
+            <link rel="stylesheet" href={{ asset('css/normalize.css') }}>
+            <link rel="stylesheet" href="https://www.w3schools.com/w3css/3/w3.css">
+            {# Font awesome #}
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+            <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+            {# Chosen css #}
+            <link rel="stylesheet" href="{{ asset('css/chosen/chosen.min.css') }}">
+            <link rel="stylesheet" href="{{ asset('css/datepicker/jquery-ui.min.css') }}">
+            {#<link rel="stylesheet" href="{{ asset('css/iCheck/custom.css') }}">#}
+            <link rel="stylesheet" href="{{ asset('css/iCheck/blue.css') }}">
+            <link rel="stylesheet" href="{{ asset('css/tooltip/tooltipster.bundle.min.css') }}">
+            <link rel="stylesheet" href="{{ asset('css/tooltip/tooltipster-sideTip-light.min.css') }}">
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.2.0/jquery-confirm.min.css">
+            <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.15/css/jquery.dataTables.css">
+            {#<link rel="stylesheet" href="{{ asset('css/fileInput/demo.css') }}">#}
+            <link rel="stylesheet" href="{{ asset('css/fileInput/component.css') }}">
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-date-range-picker/0.14.4/daterangepicker.min.css">
+            <link rel="stylesheet" href="{{ asset('css/estilo.css') }}">
+
+            {# JAVASCRIPT #}
+            <script type="text/javascript" src="{{ asset('js/jquery.min.js') }}"></script>
+            
+            {# Chosen js #}
+            <script type="text/javascript" src="{{ asset('js/chosen/chosen.old.jquery.min.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('js/datepicker/jquery-ui.min.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('js/iCheck/icheck.min.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('js/tooltip/tooltipster.bundle.min.js') }}"></script>
+            <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.2.0/jquery-confirm.min.js"></script>
+            <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.js"></script>
+            <script type="text/javascript" src="{{ asset('js/fileInput/custom-file-input.js') }}"></script>
+            {#<script type="text/javascript" src="{{ asset('js/fileInput/jquery.custom-file-input.js') }}"></script>#}
+            <script type="text/javascript" src="{{ asset('js/moment.min.js') }}"></script>
+            <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-date-range-picker/0.14.4/jquery.daterangepicker.min.js"></script>
+            <script type="text/javascript" src="{{ asset('js/datepickerrang.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('js/convivencia.js') }}"></script>
+            <script src="https://cdn.ckeditor.com/ckeditor5/19.1.1/classic/ckeditor.js"></script>
+        {% endblock %}
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    </head>
+    <body>
+    {% block spinner %}
+        <div class="w3-center">
+        <div class="loaderIntro"></div>
+        </div>
+        <div class="containerLoader">
+            <img src="{{ asset('img/white.png') }}">
+        </div>
+    {% endblock %}
+        {% include 'convivencia/header.html.twig' %}
+
+        {% block body %}
+
+        {% endblock %}
+        {% block javascripts %}{% endblock %}
+    </body>
+</html>

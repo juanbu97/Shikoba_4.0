@@ -1,0 +1,62 @@
+{% extends 'base2.html.twig' %}
+
+{% block body %}
+    {% include 'convivencia/navegacion.html.twig' %}
+
+    <div class="center" id="fondo">
+        <div class="back">
+            <div class="col s12 m6 l4 offset-l4 offset-m3 center ">
+                <form action="{{ path('login') }}" method="post">
+
+                    <div style="text-align: center; padding-top: 20px;">
+                        <img class="responsive-img" src="{{ asset('img/logo2.svg') }}"/>
+                    </div>
+
+                    {# Muestra el error en caso de existir#}
+                    {% if error %}
+                        <div class="card-panel red white-text" style="position: relative;">
+                            <span class="spancaja">Credenciales inválidos</span> <i
+                                    class="material-icons spanico">clear</i>
+                        </div>
+                    {% endif %}
+
+                    {% for flash_message in app.session.flashBag.get('login') %}
+                        <div class="card-panel green white-text" style="position: relative;">
+                            <span class="spancaja">{{ flash_message }} </span><i class="material-icons spanico">done</i>
+                        </div>
+                    {% endfor %}
+
+                    {% for flash_message in app.session.flashBag.get('loginError') %}
+                        <div class="card-panel red white-text" style="position: relative;">
+                            <span class="spancaja">{{ flash_message }}</span> <i
+                                    class="material-icons spanico">clear</i>
+                        </div>
+                    {% endfor %}
+
+                    <div class="input-field col s12 center">
+                        <input name="_username" id="username" type="text" class="validate white-text">
+                        <label for="username">Usuario</label>
+                    </div>
+                    <div class="input-field col s12 center">
+                        <input name="_password" id="password" type="password" class="validate white-text">
+                        <label for="password">Contraseña</label>
+                    </div>
+                    <div class="col s6 left ">
+                        <input type="checkbox" id="remember_me" name="_remember_me"/>
+                        <label for="remember_me">Recordar Contraseña</label>
+                    </div>
+                    <div class="col s6 right">
+                        <a href="{{ path('recuperarPassword') }}">Recuperar contraseña</a>
+                    </div>
+                    {# Ruta a la que redirige si hay éxito #}
+                    <input type="hidden" name="_target_path" value="/alumno"/>
+                    <div class="col s12 center mtop">
+                        <button class="btn blue darken-3 waves-effect waves-light" type="submit">
+                            Entrar<i class="material-icons right">send</i></button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

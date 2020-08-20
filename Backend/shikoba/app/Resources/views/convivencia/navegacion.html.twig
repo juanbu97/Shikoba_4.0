@@ -1,0 +1,281 @@
+{#
+Vista del nav.
+Actualizado por GUBS, RAGZ, 2019
+#}
+{% block header %}
+    {% if app.user.usuario is defined %}
+        <header>
+            <div class="navbar-fixed z-depth-4" id="inicio">
+                <nav>
+                    <div class="nav-wrapper blue darken-3 row">
+                        <div class="col s12 center hide-on-large-only" id="nav_mob">
+                            <a href="{{ path('index') }}" class="right"><img src="{{ asset('img/logo3.png') }}"
+                                                                             alt="logo3"></a>
+                            <a href="#" data-activates="slide-out" class="button-collapse left"><i
+                                        class="material-icons">menu</i></a>
+                            <ul id="slide-out" class="side-nav">
+                                <li>
+                                    <div class="userView">
+                                        <div class="background center">
+                                        </div>
+                                        <a href="{{ path('index') }}">
+                                            <img class=" center centro" src="{{ asset('img/logo3.png') }}" alt="logo3">
+                                        </a>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="divider"></div>
+                                    {% if (is_granted('ROLE_ADMIN') or is_granted('ROLE_PROFESOR') or is_granted('ROLE_CONVIVENCIA')) %}
+                                <li>
+                                    <a class="waves-effect waves-blue" href="{{ path('show_carnets') }}">Carnets</a>
+                                </li>
+                                <!--Filtramos el menú, deshabilitamos opciones para el rol profesor -->
+                                <li>
+                                    <a class="waves-effect waves-blue" href="{{ path('gestion_partes') }}">Partes</a>
+                                </li>
+                                <li>
+                                    <a class="waves-effect waves-blue"
+                                       href="{{ path('gestion_sanciones') }}">Medidas</a></li>
+                                {% if (is_granted('ROLE_ADMIN')  or is_granted('ROLE_CONVIVENCIA')) %}
+                                    <li>
+                                        <a class="waves-effect waves-blue" href="{{ path('show_diario') }}">Diario</a>
+                                    </li>
+                                {% endif %}
+                                {% if ( is_granted('ROLE_ADMIN') or is_granted('ROLE_CONVIVENCIA')) %}
+                                    <li>
+                                        <a class="waves-effect waves-blue"
+                                           href="{{ path('show_alumnos') }}">Alumnado</a>
+                                    </li>
+                                {% endif %}
+                                <div class="divider"></div>
+                                {% if is_granted('ROLE_CONVIVENCIA') %}
+                                    <li>
+                                        <a class="waves-effect waves-blue" href="{{ path('noticias') }}">Noticias</a>
+                                    </li>
+                                    
+                                {% endif %}
+                                <!--Con esta path vamos a definir los alumnos por profesor, esto es, su tutoría-->
+                                <!--Debe ajustarse en la respectiva action en AlumnosController-->
+                                {% if is_granted('ROLE_PROFESOR') %}
+                                    <li>
+                                        <a href="{{ path('show_alumnosgrupo') }}">Tutoría</a>
+                                    </li>
+                                {% endif %}
+                                {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_CONVIVENCIA') %}
+                                    <li class="no-padding">
+                                        <ul class="collapsible collapsible-accordion">
+                                            <li>
+                                                <a class="collapsible-header waves-effect waves-blue">Informes
+                                                    <i class="material-icons right">arrow_drop_down</i>
+                                                </a>
+                                                <div class="collapsible-body ">
+                                                    <ul>
+                                                        <li>
+                                                            <a class="waves-effect waves-blue"
+                                                               href="{{ path('partes_alumno_informe') }}">
+                                                                Partes alumnado
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a class="waves-effect waves-blue"
+                                                               href={{ path('partes_grupos_informe') }}>
+                                                                Partes grupos
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a class="waves-effect waves-blue"
+                                                               href="{{ path('partes_profesor_informe') }}">
+                                                                Partes profesorado
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a class="waves-effect waves-blue"
+                                                               href="{{ path('sanciones_alumnosgrupos_informe') }}">
+                                                                Sanciones alumnado
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                {% endif %}
+                                {% if is_granted('ROLE_ADMIN') %}
+                                    <li class="no-padding">
+                                        <ul class="collapsible collapsible-accordion">
+                                            <li>
+                                                <a class="collapsible-header waves-effect waves-blue">Administrar<i
+                                                            class="material-icons right">arrow_drop_down</i></a>
+                                                <div class="collapsible-body ">
+                                                    <ul>
+                                                        <li>
+                                                            <a class="waves-effect waves-blue"
+                                                               href="{{ path('admin_import') }}">Alumnado
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a class="waves-effect waves-blue"
+                                                               href="{{ path('admin_import_profesor') }}">Profesorado</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="{{ path('admin_tutores') }}"
+                                                               class="blue darken-2 white-text">Tutoría</a>
+                                                        </li>
+                                                        {# <li>
+                                                            <a class="waves-effect waves-blue" href="{{ path('admin_security') }}">Copia de seguridad</a>
+                                                        </li>#}
+                                                    </ul>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                {% endif %}
+                                {% elseif is_granted('ROLE_TUTOR') %}
+                                    {# <li>
+                                        <a class="waves-effect waves-blue" href="{{ path('index') }}">Alumnado</a>
+                                       </li>
+                                    {% elseif is_granted('ROLE_USER') %}
+                                    <a class="waves-effect waves-blue" href="{{ path('registrarAlumno') }}">Perfil</a> #}
+                                {% endif %}
+                                <div class="divider"></div>
+                                <li>
+                                    <a class="waves-effect waves-blue" href="{{ path('change_password') }}">Cambiar
+                                        contraseña</a>
+                                </li>
+                                <li>
+                                    <a class="waves-effect waves-blue" href="{{ path('logout') }}">Salir</a>
+                                </li>
+                                <div class="divider"></div>
+                                <li style="color: rgba(0,0,0,0.87);font-weight: 500;">
+                                    Perfil: {{ app.user.usuario }}</li>
+
+                            </ul>
+                        </div>
+                        <div class="col l8 left hide-on-med-and-down">
+                            <ul class="left">
+
+                                <li>
+                                    <a href="{{ path('index') }}" class="ancla centro">
+                                        <img id="img_nav" src="{{ asset('img/logo3.png') }}" alt="logo3">
+                                    </a>
+                                </li>
+                                {% if (is_granted('ROLE_ADMIN') or is_granted('ROLE_PROFESOR') or is_granted('ROLE_CONVIVENCIA')) %}
+                                    <li>
+                                        <a href="{{ path('show_carnets') }}">Carnets</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ path('gestion_partes') }}">Partes</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ path('gestion_sanciones') }}">Medidas</a>
+                                    </li>
+                                    {% if (is_granted('ROLE_ADMIN')  or is_granted('ROLE_CONVIVENCIA')) %}
+                                        <li>
+                                            <a href="{{ path('show_diario') }}">Diario</a>
+                                        </li>
+                                    {% endif %}
+                                    <!--Filtramos el menú, deshabilitamos opciones para el rol profesor -->
+                                    {% if ( is_granted('ROLE_ADMIN') or is_granted('ROLE_CONVIVENCIA')) %}
+                                        <li>
+                                            <a class="waves-effect waves-blue"
+                                               href="{{ path('show_alumnos') }}">Alumnado</a>
+                                        </li>
+                                    {% endif %}
+                                    {% if is_granted('ROLE_CONVIVENCIA') %}
+                                        <li>
+                                            <a href="{{ path('noticias') }}">Noticias</a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ path('eventos') }}">Eventos</a>
+                                        </li>
+                                    {% endif %}
+                                    <!--Con esta path vamos a definir los alumnos por profesor, esto es, su tutoría-->
+                                    <!--Debe ajustarse en la respectiva action en AlumnosController-->
+                                    {% if is_granted('ROLE_PROFESOR') %}
+                                        <li>
+                                            <a href="{{ path('show_alumnosgrupo') }}">Tutoría</a>
+                                        </li>
+
+                                    {% endif %}
+                                    {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_CONVIVENCIA') %}
+                                        <li>
+                                            <a class="dropdown-button" href="#!" data-activates="dropdown1">Informes
+                                                <i class="material-icons right">keyboard_arrow_right</i></a>
+                                            <ul id="dropdown1" class="dropdown-content">
+                                                <li>
+                                                    <a href="{{ path('partes_alumno_informe') }}"
+                                                       class="blue darken-5 white-text">Partes alumnado</a>
+                                                </li>
+                                                <li>
+                                                    <a href="{{ path('partes_grupos_informe') }}"
+                                                       class="blue darken-2 white-text">Partes grupos</a>
+                                                </li>
+                                                <li>
+                                                    <a href="{{ path('partes_profesor_informe') }}"
+                                                       class="blue darken-2 white-text">Partes profesorado</a>
+                                                </li>
+                                                <li>
+                                                    <a href="{{ path('sanciones_alumnosgrupos_informe') }}"
+                                                       class="blue darken-2 white-text">Sanciones alumnado</a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    {% endif %}
+                                    {% if is_granted('ROLE_ADMIN') %}
+                                        <li>
+                                            <a class="dropdown-button" href="#!" data-activates="dropdown2">Administrar
+                                                <i class="material-icons right">keyboard_arrow_right</i>
+                                            </a>
+                                            <ul id="dropdown2" class="dropdown-content">
+                                                <li>
+                                                    <a href="{{ path('admin_import') }}"
+                                                       class="blue darken-2 white-text">Alumnado</a>
+                                                </li>
+                                                <li>
+                                                    <a href="{{ path('admin_import_profesor') }}"
+                                                       class="blue darken-2 white-text">Profesorado</a>
+                                                </li>
+                                                <li>
+                                                    <a href="{{ path('admin_tutores') }}"
+                                                       class="blue darken-2 white-text">Tutoría</a>
+                                                </li>
+                                                <li>
+                                                    <a href="{{ asset('apk/shikobaApp.rar') }}"  download class="blue darken-2 white-text">Apk</a>
+                                                </li>
+
+                                                {#<li>
+                                                    <a href="{{ path('admin_security') }}" class="blue darken-2 white-text">Copia
+                                                             de seguridad
+                                                    </a>
+                                                </li>#}
+                                            </ul>
+                                        </li>
+                                    {% endif %}
+
+                                    {#Deshabilitamos esta opción para el rol tutor#}
+                                    {#{% elseif is_granted('ROLE_TUTOR') %}#}
+                                    {# <li>
+                                         <a href="{{ path('index') }}" class="ancla centro"> <img id="img_nav" src="/img/logo3.png" alt=""></a>
+                                     </li>
+                                 {% elseif is_granted('ROLE_USER') %}
+                                     <a href="{{ path('registrarAlumno') }}">Perfil</a>#}
+                                {% endif %}
+                            </ul>
+                        </div>
+                        <div class="col l4 right hide-on-med-and-down">
+                            <ul class="right">
+                                <li>
+                                    <a href="{{ path('change_password') }}">Cambiar contraseña</a>
+                                </li>
+                                <li>
+                                    <a href="{{ path('logout') }}">Salir</a>
+                                </li>
+                                <li style="padding: 0 5px;">Perfil: {{ app.user.usuario }}</li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </header>
+    {% endif %}
+{% endblock %}

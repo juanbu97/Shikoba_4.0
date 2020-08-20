@@ -1,0 +1,75 @@
+{#
+Vista de edición de alumno.
+Actualizado por GUBS, RAGZ, 2019
+#}
+{% extends 'base2.html.twig' %}
+
+{% block body %}
+    {% include 'convivencia/navegacion.html.twig' %}
+
+    <div class="">
+        <h3 class="center azul-prof fuente">Modificar alumno</h3>
+        {{ form_start(form, {'action':'', 'method':'POST'}) }}
+        <div class="col s12 m6">
+            {{ form_row(form.nombre) }}
+        </div>
+        <div class="col s12 m6">
+            {{ form_row(form.apellido1) }}
+        </div>
+        <div class="col s12 m6">
+            {{ form_row(form.apellido2) }}
+        </div>
+        <div class="col s12 m6">
+            {{ form_row(form.nie) }}
+        </div>
+        <div class="col s12 m6">
+            {{ form_row(form.telefono) }}
+        </div>
+        <div class="col s12 m6">
+            {{ form_row(form.email) }}
+        </div>
+        <div class="col s12 m6">
+            {{ form_row(form.direccion) }}
+        </div>
+        <div class="col s12 m6">
+            {{ form_row(form.codigoPostal) }}
+        </div>
+        <div class="col s12 m6">
+            {{ form_row(form.puntos) }}
+        </div>
+        <div class="col s12 m6">
+            {{ form_row(form.puntosIniciales) }}
+        </div>
+        <div class="col s12 m6">
+            {{ form_row(form.tutorL1) }}
+        </div>
+        <div class="col s12 m6">
+            {{ form_row(form.tutorL2) }}
+        </div>
+        <div class="col s12 m6">
+            {{ form_row(form.telefonoTL1) }}
+        </div>
+        <div class="col s12 m6">
+            {{ form_row(form.telefonoTL2) }}
+        </div>
+        <div class="col s12 m6 center">
+            {{ form_widget(form.msgTL1) }}
+            {{ form_label(form.msgTL1) }}
+        </div>
+        <div class="col s12 m6 center">
+            {{ form_widget(form.msgTL2) }}
+            {{ form_label(form.msgTL2) }}
+        </div>
+        <div class="col s12 l4 offset-l4 center">
+            <a class="z-depth-3 btn blue darken-3 waves-effect waves-light botonSubmit confirm"
+               style="margin: 2rem auto" href="{{ path('show_alumnos') }}" data-title="Cancelar" data-content="¿Desea volver a alumnado?" >Cancelar
+                <i class="material-icons left">undo</i>
+            </a>
+            <button class=" btn z-depth-3 blue darken-4 waves-effect waves-light" type="submit"
+                    style="margin: 2rem auto" name="guardar" value="Enviar">Enviar
+                <i class="material-icons right">send</i>
+            </button>
+        </div>
+        {{ form_end(form) }}
+    </div>
+{% endblock %}

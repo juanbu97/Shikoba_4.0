@@ -1,0 +1,146 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Cursos
+ *
+ * @ORM\Table(name="cursos")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\CursosRepository")
+ */
+class Cursos
+{
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="curso", type="string", length=100)
+     */
+    private $curso;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="grupo", type="string", length=100)
+     */
+    private $grupo;
+
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="aula", type="string", length=5)
+     */
+    private $aula;
+
+    /**
+     * @var integer
+     *
+     * @ORM\ManyToOne(targetEntity="Tutores")
+     * @ORM\JoinColumn(name="idTutor", referencedColumnName="id")
+     */
+    private $idTutor;
+
+
+    /**
+     * Get id
+     *
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set curso
+     *
+     * @param string $curso
+     *
+     * @return Cursos
+     */
+    public function setCurso($curso)
+    {
+        $this->curso = $curso;
+
+        return $this;
+    }
+
+    /**
+     * Get curso
+     *
+     * @return string
+     */
+    public function getCurso()
+    {
+        return $this->curso;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAula()
+    {
+        return $this->aula;
+    }
+
+    /**
+     * @param string $aula
+     */
+    public function setAula($aula)
+    {
+        $this->aula = $aula;
+    }
+
+    /**
+     * @return int
+     */
+    public function getIdTutor()
+    {
+        return $this->idTutor;
+    }
+
+    /**
+     * @param int $idTutor
+     */
+    public function setIdTutor($idTutor)
+    {
+        $this->idTutor = $idTutor;
+    }
+
+
+
+    /**
+     * Set grupo
+     *
+     * @param string $grupo
+     *
+     * @return Cursos
+     */
+    public function setGrupo($grupo)
+    {
+        $this->grupo = $grupo;
+
+        return $this;
+    }
+
+    /**
+     * Get grupo
+     *
+     * @return string
+     */
+    public function getGrupo()
+    {
+        return $this->grupo;
+    }
+}

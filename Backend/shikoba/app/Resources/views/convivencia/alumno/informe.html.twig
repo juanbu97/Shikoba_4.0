@@ -1,0 +1,45 @@
+{#
+Vista de informes en los carnets.
+Actualizado por GUBS, RAGZ, 2019
+#}
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <main class="w3-container w3-margin-top">
+        {% if partes is defined %}
+            <div class="w3-row contenedorCartaInforme">
+                <div class="w3-card-2 cartaAlumno">
+                    <header class="w3-container w3-center">
+                        <h2>Historico partes</h2>
+                    </header>
+                    <div class="cartaInformeCuerpo">
+                        {% for parte in partes %}
+                            <div>
+                            <p>El {{ parte.fecha|date('d/m/Y') }} tuvo una falta {{ parte.idTipo.tipo|lower }}
+                                , {{ parte.idProfesor.getNombreCompleto() }} indicó:</p>
+                                <p>{{ parte.descripcion }}</p>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+
+        {% if sanciones is defined %}
+        <div class="w3-row w3-center">
+            <div class="w3-card-2 cartaInforme cartaAlumno">
+                <header class="w3-container w3-center">
+                    <h2>Historico Sanciones</h2>
+                </header>
+                <div class="cartaInformeCuerpo">
+                    {% for sancion in sanciones %}
+                        <p>El {{ sancion.fecha|date('d/m/Y') }} tuvo una sanción de
+                            tipo {{ sancion.idTipo.tipo }}</p>
+                    {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </main>
+
+{% endblock %}

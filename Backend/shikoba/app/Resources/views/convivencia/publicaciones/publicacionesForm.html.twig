@@ -1,0 +1,40 @@
+{#
+Vista de edición de noticias.
+Actualizado por GUBS, RAGZ, 2019
+#}
+{% extends 'base2.html.twig' %}
+
+{% block body %}
+	<script type="text/javascript" src="{{ asset('js/ckeditor/ckeditor.js') }}"></script>
+	{% include 'convivencia/navegacion.html.twig' %}
+	<div class="">
+		<h3 class="center azul-prof fuente">Publicar noticia</h3>
+
+		{{form_start(form)}}
+
+		<div class="col s6 m4 offset-m2" id="fechaInicio">
+			{{form_row(form.fechaInicio )}}
+		</div>
+
+		<div class="col s6 m4" id="fechaFinal">
+			{{form_row(form.fechaFinal )}}
+		</div>
+
+		<div class="col s6 m4 offset-m4" id="prioridad">
+            {{form_label(form.prioridad, 'Seleccione la prioridad de la noticia')}}
+			{{form_widget(form.prioridad)}}
+		</div>
+
+		<div style="margin-top: 3%" class="col s12 center">
+			<a href="{{ path('noticias') }}" data-title="Cancelar" data-content="¿Desea regresar a noticias?" class="z-depth-3 btn blue darken-3 waves-effect waves-light botonSubmit confirm" style="margin-bottom: 1%">Cancelar
+				<i class="material-icons left">undo</i>
+			</a>
+			<button class="btn z-depth-3 blue darken-4 waves-effect waves-light" type="submit" style="margin-bottom: 1%" value="Enviar">Publicar
+				<i class="material-icons right">send</i>
+			</button>
+		</div>
+		{{ form_end(form) }}
+
+	</div>
+
+{% endblock %}

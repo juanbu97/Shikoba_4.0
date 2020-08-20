@@ -1,0 +1,14 @@
+{#
+Vista de registro.
+Actualizado por GUBS, RAGZ, 2019
+#}
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <main class="w3-container w3-margin-top w3-center">
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <input type="submit" name="registrarse" value="Registrarse">
+        {{ form_end(form) }}
+    </main>
+{% endblock %}

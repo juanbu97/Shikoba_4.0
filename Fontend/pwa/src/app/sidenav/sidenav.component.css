@@ -1,0 +1,27 @@
+.nav-wrapper{
+  background-image: url('src/assets/img/logo3.png');
+  background-size:  20%;
+  background-position: 97%;
+  background-repeat: no-repeat;
+}
+
+.material-icons{
+  color: white;
+  position: 8%;
+  font-size: 45px;
+}
+
+#shikobaIcono{
+  width: 50%;
+  display: block;
+  margin: 1em auto;
+}
+
+.btn{
+  margin: 0 auto;
+  display: block;
+}
+
+hr{
+  border: 1px solid #eee;
+}

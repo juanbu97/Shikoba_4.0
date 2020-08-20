@@ -1,0 +1,62 @@
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+* {
+    font-size: 18px;
+}
+
+table, th, td {
+    border: 1px solid black;
+}
+
+td {
+    padding: 1%;
+    font-size: 16px;
+}
+
+.faltas {
+    border: 0;
+    border-left: 1px solid black;
+    width: 43%;
+}
+
+.curso {
+    width: 20%;
+    font-size: 12px;
+}
+
+.faltas2 {
+    width: 6%;
+    border: 0;
+    border-right: 1px solid black;
+}
+
+label {
+    font-size: 14.5px;
+}
+
+.alig {
+    text-align: right;
+}
+
+.back {
+    background-color: darkgrey;
+    font-size: 15.5px;
+}
+
+.borde {
+    width: 80%;
+    margin: 0 auto;
+    border: 2px solid black;
+}
+
+.firma {
+    text-align: center;
+    font-size: 13.5px;
+}
+
+.expulsion {
+    font-size: 13.5px;
+}

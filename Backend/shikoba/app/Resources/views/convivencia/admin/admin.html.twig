@@ -1,0 +1,60 @@
+{#
+Vista principal de la página.
+Actualizado por GUBS, RAGZ, 2019
+#}
+{% extends 'base2.html.twig' %}
+
+{% block body %}
+    {% include 'convivencia/navegacion.html.twig' %}
+    <div class="">
+        <h3 class="center azul-prof fuente">Administración</h3>
+        <div class="col s12 m6 l4">
+            <div class="card horizontal">
+                <div class="card-image">
+                    <img src="{{ asset('img/pencil.jpg') }}" alt="imagen editar">
+                </div>
+                <div class="card-stacked">
+                    <div class="card-content">
+                        <h5>Partes iniciados</h5>
+                        <h2>{{ partesIniciados }}</h2>
+                    </div>
+                    <div class="card-action blue darken-1 center">
+                        <a href="{{ path('gestion_partes') }}" class="white-text font16">IR</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col s12 m6 l4">
+            <div class="card horizontal">
+                <div class="card-image">
+                    <img src="{{ asset('img/document.jpg') }} " alt="imagen documento">
+                </div>
+                <div class="card-stacked">
+                    <div class="card-content">
+                        <h5>Sanciones iniciadas</h5>
+                        <h2>{{ sancionesIniciadas }}</h2>
+                    </div>
+                    <div class="card-action blue darken-1 center">
+                        <a href="{{ path('gestion_sanciones') }}" class="white-text font16">IR</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col s12 m6 l4">
+            <div class="card horizontal">
+                <div class="card-image">
+                    <img src="{{ asset('img/clase.jpeg') }}" alt="imagen clase">
+                </div>
+                <div class="card-stacked">
+                    <div class="card-content">
+                        <h5>Aforo aula convivencia</h5>
+                        <h2>{{ diarioNow }}</h2>
+                    </div>
+                    <div class="card-action blue darken-1 center">
+                        <a href="{{ path('show_diario') }}" class="white-text font16">IR</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

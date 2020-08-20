@@ -1,0 +1,305 @@
+{#
+Vista principal del alummno con perfil usuario.
+Actualizado por GUBS, RAGZ, 2019
+#}
+{% extends 'base2.html.twig' %}
+{% block body %}
+    {% include 'convivencia/navegacion.html.twig' %}
+    <script>
+        (function (e, t, n) {
+            var r = e.querySelectorAll("html")[0];
+            r.className = r.className.replace(/(^|\s)no-js(\s|$)/, "$1js$2")
+        })(document, window, 0);
+    </script>
+    <div class="">
+        <h3 class="center azul-prof fuente">{{ alumnoData.alumno.getNombreCompleto() }}</h3>
+        <h4 class="center fuente" id="punto">Puntos: <span style="margin-top: -10px; font-size: 2rem;">{{ alumnoData.alumno.puntos }}</span>/10</h4>
+        <div class="col s12 l5 offset-l5 center">
+            {% for flash_message in app.session.flashBag.get('alumno') %}
+                <div class="card-panel green white-text flash" style="position: relative;">
+                    <span class="spancaja">{{ flash_message }} </span><i class="material-icons spanico">done</i>
+                </div>
+            {% endfor %}
+            {% for flash_message in app.session.flashBag.get('alumnoError') %}
+                <div class="card-panel red white-text flash" style="position: relative;">
+                    <span class="spancaja">{{ flash_message }}</span><i class="material-icons spanico">clear</i>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="row" id="row1">
+            <div class="pad col l6 s1 hide-on-large-only left">
+                <button id="esta" class="pad3 z-depth-3 btn btn-floating blue darken-3 waves-effect waves-light"
+                        type="button" value="Estadisticas" title="Estadisticas">
+                    <i class="material-icons right">assessment</i>
+                </button>
+            </div>
+            <div class="pad col s1 hide-on-large-only right">
+                <button id="histo" class="pad2 z-depth-3 btn btn-floating blue darken-3 waves-effect waves-light"
+                        type="button" value="Historico" title="Historico">
+                    <i class="material-icons right">assignment</i>
+                </button>
+            </div>
+            <div class="col l12 s10 center" id="img">
+                {% if alumnoData.alumno.foto == "" or alumnoData.alumno.foto == null %}
+                    <img class="circle logo-inicial"
+                         src="{{ asset('img/default_user.svg' ) }}"
+                         alt="avatar">
+
+              {% elseif alumnoData.alumno.foto != "" or alumnoData.alumno.foto != null %}
+                    <img class="responsive-img circle" src="{{ asset('img/alumnos/'~alumnoData.alumno.foto) }}"
+                         alt="avatar">
+                {% else %}
+                    <img class="responsive-img circle logo-inicial"
+                         src="{{ asset('img/alumnos/'~alumnoData.alumno.nie~'.PNG'  ) }}" alt="avatar">
+                {% endif %}
+            </div>
+                <div class="center" style="padding-bottom: 1%; margin-top: 10px">
+                    {#<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/EAN13.svg/220px-EAN13.svg.png"#}
+                    {#style="width:150px;">#}
+                    {% if alumnoData.alumno.idUsuario.id == app.user.id %}
+                        <form method="post" action="{{ path('change_image') }}" enctype="multipart/form-data">
+                            <div class="content">
+                                <div class="box">
+                                    <input type="file" accept="image/*" name="file" id="file"
+                                           class="inputfile inputfile-1 waves-effect waves-light" hidden
+                                           capture="camera">
+                                    <label for="file" class="waves-effect waves-light" style="padding-bottom: 1%; margin-top: 20px">
+                                        <span class="left"> Subir Imagen (2MB) </span><i
+                                                class="material-icons imag right">file_upload</i>
+                                    </label>
+                                </div>
+                            </div>
+                        </form>
+                    {% endif %}
+                </div>
+            </div>
+           {# <div class="col l6 s12 center" id="not">
+                {% if noticia is not empty %}
+                    {% for noticias in noticia %}
+                        {% if noticias.noticia_texto is null or
+                            noticias.fechaInicio|date('d/m/Y H:i:s') >  "now"|date('d/m/Y H:i:s') or
+                            noticias.fechaFinal|date('d/m/Y H:i:s') <  "now"|date('d/m/Y H:i:s') %}
+                            <h3 style="text-align:center">Bienvenid@s a la nueva interfaz de <strong>SHIKOBA</strong>
+                            </h3>
+                            <p style="text-align:center">Aqu&iacute; podr&aacute;s disfrutar de una nueva experiencia
+                                gracias
+                                a su nuevo dise&ntilde;o</p>
+
+                            <p style="text-align:center">Adem&aacute;s aqu&iacute; insertaremos nuevas noticias
+                                personalizadas
+                                para t&iacute;</p>
+
+                            <p style="text-align:center">
+                                <img alt="" src="{{ asset('img/logo.jpg') }}" style="height:100px; width:100px"/>
+                                <img alt="" src="{{ asset('img/logo2.svg') }}" style="border-style:solid; border-width:0px; height:92px; width:146px"/>
+                            </p>
+
+                        {% else %}
+                            {{ noticias.noticia_texto | raw }}
+                        {% endif %}
+                    {% endfor %}
+                {% else %}
+                    <h3 style="text-align:center">Bienvenid@s a la nueva interfaz de <strong>SHIKOBA</strong></h3>
+
+                    <p style="text-align:center">Aqu&iacute; podr&aacute;s disfrutar de una nueva experiencia gracias
+                        a su nuevo dise&ntilde;o</p>
+
+                    <p style="text-align:center">Adem&aacute;s aqu&iacute; insertaremos nuevas noticias personalizadas
+                        para t&iacute;</p>
+
+                    <p style="text-align:center">
+                        <img alt="" src="{{ asset('img/logo.jpg') }}" style="height:100px; width:100px"/>
+                        <img alt="" src="{{ asset('img/logo2.svg') }}" style="border-style:solid; border-width:0px; height:92px; width:146px"/>
+                    </p>
+                {% endif %}
+            </div>#}
+            <div class="w3-col l6" style="display: none;">
+                <div class="w3-row w3-center w3-text-center widthChartMobile">
+                    <div class="w3-content marginBottom marginTopNoMobile">
+                        <h4>Estadísticas Totales {{ alumnoData.getYear() }}</h4>
+                        <canvas id="myChart" width="400" height="400"></canvas>
+                    </div>
+                </div>
+            </div>
+        <div class="row" id="row2">
+            <div class="pad col l6 s1 hide-on-large-only left">
+                <button id="noti" class="z-depth-3 pad3 btn btn-floating blue darken-3 waves-effect waves-light"
+                        type="button" value="Noticia" title="Noticia">
+                    <i class="material-icons right">face</i>
+                </button>
+            </div>
+            <div class="col pad s1 hide-on-large-only right">
+                <button id="histo" class="pad2 z-depth-3 btn btn-floating blue darken-3 waves-effect waves-light"
+                        type="button" value="Historico" title="Historico">
+                    <i class="material-icons right">assignment</i>
+                </button>
+            </div>
+            <div class="col s10 l6 center">
+                <h5 class="card-title">Partes {{ alumnoData.getYear() }}</h5>
+                <canvas id="myChart2"></canvas>
+            </div>
+
+            <div class="col offset-s1 s10 l6 center">
+                <h5 class="card-title">Sanciones {{ alumnoData.getYear() }}</h5>
+                <canvas id="myChart3"></canvas>
+            </div>
+        </div>
+        {% set arrMeses = [] %}
+        {% set arrPartes = [] %}
+        {% for mes, partesMes in alumnoData.numPartesMeses %}
+            {% set arrMeses = arrMeses|merge([mes]) %}
+            {% set arrPartes = arrPartes|merge([partesMes]) %}
+        {% endfor %}
+        {% set arrMesesSanciones= [] %}
+        {% set arrSanciones = [] %}
+        {% for mes, sancionesMes in alumnoData.numSancionesMeses %}
+            {% set arrMesesSanciones = arrMesesSanciones|merge([mes]) %}
+            {% set arrSanciones = arrSanciones|merge([sancionesMes]) %}
+        {% endfor %}
+        {% if arrMeses|length > 4 %}
+            {% set barPercentage = 0.4 %}
+        {% else %}
+            {% set barPercentage = 0.2 %}
+        {% endif %}
+        <script>
+            var ctx = document.getElementById("myChart").getContext('2d');
+            var myChart = new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    datasets: [{
+                        data: [{{ alumnoData.numPartes }}, {{ alumnoData.numSanciones }}, {{ alumnoData.numVisitasConvivencia }}],
+                        backgroundColor: [
+                            'rgba(54, 162, 235, 0.5)',
+                            'rgba(153, 102, 255, 0.5)',
+                            'rgba(255, 159, 64, 0.5)',
+                            'rgba(153, 102, 255, 0.5)',
+                            'rgba(56, 136, 155, 0.5)',
+                            'rgba(75, 192, 192, 0.5)',
+                            'rgba(255, 206, 86, 0.5)'
+                        ],
+                    }],
+
+                    labels: [
+                        'Partes',
+                        'Sanciones',
+                        'Visitas Aula Convivencia'
+                    ]
+                }
+            });
+
+            ctx = document.getElementById("myChart2").getContext('2d');
+            var myChart2 = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: {{ arrMeses|json_encode|raw }},
+                    datasets: [
+                        {
+                            label: 'Partes',
+                            data: {{ arrPartes|json_encode|raw }},
+                           backgroundColor: 'rgba(56, 136, 155, 0.5)',
+                   //      backgroundColor: [
+                   //         'rgba(56, 136, 155, 0.5)',
+                   //         'rgba(255, 206, 86, 0.5)',
+                   //         'rgba(75, 192, 192, 0.5)',
+                   //         'rgba(153, 102, 255, 0.5)',
+                   //         'rgba(54, 162, 235, 0.5)',
+                   //         'rgba(255, 159, 64, 0.5)'
+                   // ],
+                        },
+                        {#{#}
+                        {#label: 'Visitas Aula Convivencia',#}
+                        {#data: {{ arrPartes|json_encode|raw }},#}
+                        {#backgroundColor: 'rgba(75, 192, 192, 0.5)',#}
+                        {#}#}
+                    ],
+                },
+                options: {
+                    scales: {
+                        xAxes: [{
+                            barPercentage: {{ barPercentage }}
+                        }],
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            },
+                        }],
+                    }
+                }
+            });
+
+            ctx = document.getElementById("myChart3").getContext('2d');
+            var myChart3 = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: {{ arrMesesSanciones|json_encode|raw }},
+                    datasets: [
+                        {
+                            label: 'Sanciones',
+                            data: {{ arrSanciones|json_encode|raw }},
+                            backgroundColor: 'rgba(153, 102, 255, 0.5)',
+                        },
+                    ],
+                },
+                options: {
+                    scales: {
+                        xAxes: [{
+                            barPercentage: {{ barPercentage }}
+                        }],
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            },
+                        }],
+                    }
+                }
+            });
+
+        </script>
+
+        <div class="row" id="row3">
+            <div class="col s1 hide-on-large-only pad left">
+                <button id="noti" class="z-depth-3 pad3 btn btn-floating blue darken-3 waves-effect waves-light"
+                        type="button" value="Noticia" title="Noticia">
+                    <i class="material-icons right">face</i>
+                </button>
+            </div>
+            <div class="col s1 hide-on-large-only pad right">
+                <button id="esta" class="z-depth-3 pad2 btn btn-floating blue darken-3 waves-effect waves-light"
+                        type="button" value="Estadisticas" title="Estadisticas">
+                    <i class="material-icons right">assessment</i>
+                </button>
+            </div>
+            <div class="col s10 l6 center">
+                <div class="card white darken-1">
+                    <div class="card-content black-text">
+                        <span class="card-title center "><u>Histórico partes</u></span>
+                        {% set contadorPartes = 0 %}
+                        {% set break = false %}
+                        {% for parte in alumnoData.partes if not break %}
+                            <p style="margin-bottom: 2%">El {{ parte.fecha|date('d/m/Y') }} tuvo una
+                                falta {{ parte.idTipo.tipo|lower }}
+                                , {{ parte.idProfesor.getNombreCompleto() }} indicó: <br/>
+                                {{ parte.descripcion }}</p>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+            <div class="col s10 offset-s1 l6 center">
+                <div class="card white darken-1">
+                    <div class="card-content black-text">
+                        <span class="card-title center"><u>Histórico sanciones</u></span>
+                        {% set contadorSanciones = 0 %}
+                        {% set break = false %}
+                        {% for sancion in alumnoData.sanciones if not break %}
+                            {% set contadorSanciones = contadorSanciones + 1 %}
+                            <p style="margin-bottom: 2%">El {{ sancion.fecha|date('d/m/Y') }} tuvo una sanción de
+                                tipo {{ sancion.idTipo.tipo }}<br/>Sanción: {{ sancion.sancion }}</p>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="{{ asset('js/fileInput/custom-file-input.js') }}"></script>
+{% endblock %}

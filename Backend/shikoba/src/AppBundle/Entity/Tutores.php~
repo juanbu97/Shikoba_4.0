@@ -1,0 +1,277 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Tutores
+ *
+ * @ORM\Table(name="tutores")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\TutoresRepository")
+ */
+class Tutores
+{
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var int
+     *
+     * @ORM\ManyToOne(targetEntity="Usuarios")
+     * @ORM\JoinColumn(name="idUsuario", referencedColumnName="id")
+     */
+    private $idUsuario;
+
+    /**
+     * @var int
+     * @ORM\ManyToMany(targetEntity="Alumno")
+     * @ORM\JoinColumn(name="idAlumno", referencedColumnName="id")
+     */
+    private $idAlumno;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="nombre", type="string", length=255)
+     */
+    private $nombre;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="apellido1", type="string", length=255)
+     */
+    private $apellido1;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="apellido2", type="string", length=255)
+     */
+    private $apellido2;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="telefono", type="integer", unique=true)
+     */
+    private $telefono;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="email", type="string", length=50)
+     */
+    private $email;
+
+
+    /**
+     * Get id
+     *
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set nombre
+     *
+     * @param string $nombre
+     *
+     * @return Tutores
+     */
+    public function setNombre($nombre)
+    {
+        $this->nombre = $nombre;
+
+        return $this;
+    }
+
+    /**
+     * Get nombre
+     *
+     * @return string
+     */
+    public function getNombre()
+    {
+        return $this->nombre;
+    }
+
+    /**
+     * Set apellido1
+     *
+     * @param string $apellido1
+     *
+     * @return Tutores
+     */
+    public function setApellido1($apellido1)
+    {
+        $this->apellido1 = $apellido1;
+
+        return $this;
+    }
+
+    /**
+     * Get apellido1
+     *
+     * @return string
+     */
+    public function getApellido1()
+    {
+        return $this->apellido1;
+    }
+
+    /**
+     * Set apellido2
+     *
+     * @param string $apellido2
+     *
+     * @return Tutores
+     */
+    public function setApellido2($apellido2)
+    {
+        $this->apellido2 = $apellido2;
+
+        return $this;
+    }
+
+    /**
+     * Get apellido2
+     *
+     * @return string
+     */
+    public function getApellido2()
+    {
+        return $this->apellido2;
+    }
+
+    /**
+     * Set telefono
+     *
+     * @param integer $telefono
+     *
+     * @return Tutores
+     */
+    public function setTelefono($telefono)
+    {
+        $this->telefono = $telefono;
+
+        return $this;
+    }
+
+    /**
+     * Get telefono
+     *
+     * @return int
+     */
+    public function getTelefono()
+    {
+        return $this->telefono;
+    }
+
+    /**
+     * Set email
+     *
+     * @param string $email
+     *
+     * @return Tutores
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getIdAlumno()
+    {
+        return $this->idAlumno;
+    }
+
+    /**
+     * @param int $idAlumno
+     */
+    public function setIdAlumno($idAlumno)
+    {
+        $this->idAlumno = $idAlumno;
+    }
+
+    /**
+     * Get email
+     *
+     * @return string
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->idAlumno = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Set idUsuario
+     *
+     * @param \AppBundle\Entity\Usuarios $idUsuario
+     *
+     * @return Tutores
+     */
+    public function setIdUsuario(\AppBundle\Entity\Usuarios $idUsuario = null)
+    {
+        $this->idUsuario = $idUsuario;
+
+        return $this;
+    }
+
+    /**
+     * Get idUsuario
+     *
+     * @return \AppBundle\Entity\Usuarios
+     */
+    public function getIdUsuario()
+    {
+        return $this->idUsuario;
+    }
+
+    /**
+     * Add idAlumno
+     *
+     * @param \AppBundle\Entity\Alumno $idAlumno
+     *
+     * @return Tutores
+     */
+    public function addIdAlumno(\AppBundle\Entity\Alumno $idAlumno)
+    {
+        $this->idAlumno[] = $idAlumno;
+
+        return $this;
+    }
+
+    /**
+     * Remove idAlumno
+     *
+     * @param \AppBundle\Entity\Alumno $idAlumno
+     */
+    public function removeIdAlumno(\AppBundle\Entity\Alumno $idAlumno)
+    {
+        $this->idAlumno->removeElement($idAlumno);
+    }
+
+
+}

@@ -1,0 +1,30 @@
+<div id="preCarga" *ngIf="!noticias">
+  <div class="preloader-wrapper active">
+    <div class="spinner-layer spinner-blue-only">
+      <div class="circle-clipper left">
+        <div class="circle"></div>
+      </div><div class="gap-patch">
+        <div class="circle"></div>
+      </div><div class="circle-clipper right">
+        <div class="circle"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="noticias">
+
+    <ul>
+      <li *ngFor="let noticia of noticias">
+        <div>
+          <h5 class="blue-text text-darken-4 center">
+            {{noticia.titulo}}
+          </h5>
+
+        </div>
+        <div id="noticias" class="V-container" [innerHTML]="noticia.codigo_embebido | safe: 'html'"></div>
+      </li>
+    </ul>
+
+
+</div>

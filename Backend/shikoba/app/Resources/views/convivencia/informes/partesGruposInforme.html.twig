@@ -1,0 +1,64 @@
+{#
+Vista de informes de partes de grupos.
+Creado por GUBS, RAGZ, 2019
+#}
+{% extends 'base2.html.twig' %}
+{% set modify = '1' %}
+{% set fecha = "now"|date("m/d/Y") %}
+{% block body %}
+{% include 'convivencia/navegacion.html.twig' %}
+    <div class="">
+        <h3 class="center azul-prof fuente" style="margin-bottom: 50px">Informe partes grupos</h3>
+        {% if data == null %}
+        <div class="row" style="margin-left: 23%; margin-bottom: 0" >
+            <div class="col s12 16 ">
+                <div class="row">
+                    <form action="{{ path('partes_grupos_informe') }}" method="post">
+                        <div class="col s4 m4" >
+                            <label for="fechaI">Fecha inicial</label>
+                            <input id="fechaI" type="text" name="fechaI"
+                                   value="{{ fecha|date_modify("-" ~ modify ~ " month")|date("d/m/Y") }}"
+                                   class="datepicker"/>
+                        </div>
+                        <div class="col s4 m4">
+                            <label for="fechaF">Fecha final</label>
+                            <input id="fechaF" type="text" name="fechaF" value="{{ fecha|date("d/m/Y") }}"
+                                   class="datepicker"/>
+                        </div>
+                        <div class="col s4 m4">
+                            <div class="i-checks col s12 left-align" style="margin-top: 8%;padding-left: 0;">
+                                <div class="" id="botonbus">
+                                    <button
+                                            class=" z-depth-3 btn btn-floating blue darken-3 waves-effect waves-light"
+                                            type="submit" value="Buscar" title="Buscar">
+                                        <i class="material-icons right">search</i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        {% if data != null %}
+            <table class="responsive-table highlight tableData z-depth-1" data-order='[[ 1, "desc" ]]' data-page-length='10'
+                   style="margin-bottom: 2%; margin-top: 0">
+                <thead>
+                <tr class="blue darken-3 white-text">
+                    <th>Grupo</th>
+                    <th>Partes</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for key, values in data %}
+                    <tr>
+                        <td>{{ values["Grupo"] }}</td>
+                        <td>{{ values["Partes"] }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+    </div>
+{% endblock %}

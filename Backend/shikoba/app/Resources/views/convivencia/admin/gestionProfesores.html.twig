@@ -1,0 +1,61 @@
+{#
+Vista de importación de profesores.
+Actualizado por GUBS, RAGZ, 2019
+#}
+{% extends 'base2.html.twig' %}
+
+{% block body %}
+    {% include 'convivencia/navegacion.html.twig' %}
+
+    <div class="col s12 center" id="contenedorUpload">
+
+        <h3 class="center azul-prof fuente">Importar profesores</h3>
+        <div class="col s12 center">
+
+            <!-- Modal Trigger -->
+            <a class="waves-effect waves-light btn blue darken-3 modal-trigger btn-floating" href="#modal1"><i
+                        class="material-icons">info_outline</i></a>
+
+            <!-- Modal Structure -->
+            <div id="modal1" class="modal">
+                <div class="modal-content">
+                    <h4>Info</h4>
+                    <p>Debe ser un fichero csv con el siguiente orden de campos:
+                        <br>Nombre, Primer Apellido, Segundo Apellido, Teléfono, Correo Electrónico</p>
+
+                </div>
+                <div class="modal-footer">
+                    <a href="{{ asset('csv/profesores.csv') }}" class="modal-action modal-close waves-effect waves-blue btn-flat">Descargar plantilla</a>
+                    <a href="#!" class="modal-action modal-close waves-effect waves-blue btn-flat">Cerrar</a>
+                </div>
+            </div>
+        </div>
+        <div class="divider2"></div>
+        <div class="col s12 l5 offset-l5 center">
+            {% for flash_message in app.session.flashBag.get('profesor') %}
+                <div class="card-panel green white-text flash">
+                    <span class="spancaja">{{ flash_message }} </span><i class="material-icons spanico">done</i>
+                </div>
+            {% endfor %}
+
+            {% for flash_message in app.session.flashBag.get('profesorError') %}
+                <div class="card-panel red white-text flash">
+                    <span class="spancaja">{{ flash_message }}</span> <i class="material-icons spanico">clear</i>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="col s12 l4 offset-l4 center">
+            {{ form_start(form, {'attr': {'class':' formConvivencia'}}) }}
+            {{ form_widget(form) }}
+            <button class="btn blue darken-3 waves-effect waves-light" style="margin-top: 7%;" type="submit"
+                    name="importarProfesores" id="botonImportar" value="Importar" disabled>Importar<i
+                        class="material-icons right">send</i></button>
+            {{ form_end(form) }}
+        </div>
+        <div class="">
+            <div class="loader"></div>
+        </div>
+    </div>
+
+{% endblock %}
+

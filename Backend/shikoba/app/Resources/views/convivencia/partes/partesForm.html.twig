@@ -1,0 +1,216 @@
+{#
+Vista de formulario partes.
+Actualizado por GUBS, RAGZ, 2019
+#}
+{% extends 'base2.html.twig' %}
+
+{% block body %}
+    {% include 'convivencia/navegacion.html.twig' %}
+    {% block javascripts %}
+        <script>
+            $(document).ready(function () {
+                $('#envioSMS').prop('checked', false);
+            });
+            $(function () {
+                $('#submitEnlace').click(function (e) {
+                    e.preventDefault();
+                    $('#submitEnlace').attr("href", "javascript:$('#parteForm').submit()")
+                });
+            });
+
+            function comprobar() {
+                if ($('#envioSMS').is(':checked') === true) {
+                    $('#boton').remove();
+                    $('#submitEnlace').css("display", "inline-block");
+
+                } else {
+                    $('#envioSMS').prop('checked', false);
+                    $('#submitEnlace').css("display", "none");
+                    $('#botonera').append(
+                        '<button  id="boton" class="z-depth-3 btn blue darken-4 waves-effect waves-light  "\n'
+                        + 'style="margin-bottom: 1%">Enviar ' +
+                        '<i class="material-icons right">send</i>' +
+                        '</button>');
+                }
+            }
+        </script>
+    {% endblock %}
+    <div class="">
+        <h3 class="center azul-prof fuente">Formulario partes</h3>
+        <div class="col s12 l6 offset-l3 center">
+            {% for flash_message in app.session.flashBag.get('partes') %}
+                <div class="card-panel green white-text" style="position: relative;">
+                    <span class="spancaja">{{ flash_message }} </span><i class="material-icons spanico">done</i>
+                </div>
+            {% endfor %}
+
+            {% for flash_message in app.session.flashBag.get('parteError') %}
+                <div class="card-panel red white-text" style="position: relative;">
+                    <span class="spancaja">{{ flash_message }}</span> <i class="material-icons spanico">clear</i>
+                </div>
+            {% endfor %}
+        </div>
+        <form method="post" class="" name="formBusqueda">
+            <div class="col s12 center center-align">
+                <div class="divider1" id="botonbus">
+                    <button class="busquedaMas z-depth-1 btn btn-floating blue darken-3 waves-effect waves-light"
+                            type="button"
+                            value="Búsqueda Avanzada" title="Búsqueda avanzada">
+                        <i class="material-icons right">search</i>
+                    </button>
+                </div>
+            </div>
+            <div class="col s6 right-align">
+                {% if app.request.get('idParte') is not null %}
+                <input type="hidden" value="{{ app.request.get('idParte') }}" name="idParte">
+                {% if recupera %}
+                    <a href="{{ path('nuevoParte', {'idParte': app.request.get('idParte'), 'recuperaPunto': 'true'}) }}"
+                       class="z-depth-3 btn blue darken-3 waves-effect waves-light botonSubmit confirm"
+                       data-title="Recuperar Punto">-1 Punto <i class="material-icons left">thumb_down</i></a>
+                {% else %}
+                    <button class="z-depth-3 btn blue darken-3 waves-effect waves-light botonSubmit confirm"
+                            type="button" name="recuperaPunto"
+                            value="-1 Punto"
+                            disabled>Recuperado
+                    </button>
+                {% endif %}
+            </div>
+            <div class="col s6 left-align">
+                {% if accion != 'Inhabilitada' %}
+                    <a href="{{ path('nuevoParte', {'idParte': app.request.get('idParte'), 'estadoParte': 'continuar' }) }}"
+                       class="botonSubmit confirm btn z-depth-3 blue darken-3 waves-effect waves-light"
+                       data-title="{{ accion }}">{{ accion }}
+                        <i class="right material-icons">send</i>
+                    </a>
+                {% else %}
+                    <button class="z-depth-3 btn blue darken-3 waves-effect waves-light"
+                            type="button"
+                            value="{{ parte.getIdEstado().getEstado() }}"
+                            disabled>{{ parte.getIdEstado().getEstado() }}
+                        <i class="material-icons right">send</i>
+                    </button>
+                {% endif %}
+                {% endif %}
+            </div>
+            <div id="cursos" class="col s12">
+                <div class="row">
+                    {% for curso in cursos %}
+                        <p class="col s12 m6 l3">
+                            <input type="checkbox" id="{{ curso.curso }}" name="cursos[]" value="{{ curso.curso }}"/>
+                            <label for="{{ curso.curso }}">{{ curso.curso }}</label>
+                        </p>
+                    {% endfor %}
+                    <div class="col s12 center">
+                        <button class="z-depth-3 btn blue darken-3 waves-effect waves-light"
+                                type="submit"
+                                value="Buscar" name="busqueda" title="Buscar">Buscar
+                            <i class="material-icons right">search</i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+        {{ form_start(form, {'attr': {'class':'col s12 l10 offset-l1 mtop', 'id':'parteForm'}}) }}
+        <div class="col s12 m6">
+            {{ form_row(form.idAlumno) }}
+        </div>
+        <div class="col s12 m6">
+            {{ form_row(form.idProfesor) }}
+        </div>
+
+        {#{{ form_row(form.Fecha) }}#}
+        <div class="col s12 m6 input-field">
+            <input type="text" id="fecha" name="fecha" class="datepicker"
+                   value="{{ parte.fecha|date('d/m/Y') }}" required>
+            <label for="fecha">Fecha</label>
+        </div>
+        {% if app.request.get('idParte') is null %}
+            <div class="col s12 m6" style="margin-top: 2rem;">
+                <input type="checkbox" id="expulsion" name="expulsion"/>
+                <label for="expulsion">Expulsión Aula Convivencia</label>
+            </div>
+        {% endif %}
+        {% if app.request.get('idParte') is null %}
+            <div class="col s12 m12" style="text-align:center; margin-left: 66px">
+                <input onclick="comprobar()" type="checkbox" id="envioSMS" name="envioSMS"/>
+                <label for="envioSMS">Enviar SMS</label>
+            </div>
+        {% endif %}
+        <div class="col s12">
+            {{ form_row(form.idConducta) }}
+            {# {% for conducta in conductas %}
+                 <p class="col s12">
+                     <input type="checkbox" id="{{ conducta.conducta }}" name="idConducta"
+                            value="{{ conducta.conducta }}"/>
+                     <label for="{{ conducta.conducta }}">{{ "(" ~ conducta.puntos ~ ") - "~  conducta.conducta }}</label>
+                 </p>
+             {% endfor %}#}
+        </div>
+        <div class="col s12 m6 input-field">
+            {{ form_row(form.Descripcion) }}
+        </div>
+        <div class="col s12 m6 input-field">
+            {{ form_row(form.Tareas) }}
+        </div>
+        <div class="col s6 m3">
+            {% if parte.fechaComunicacion is null %}
+                {{ form_row(form.fechaComunicacion, {value : parte.fechaComunicacion|date("d/m/Y")}) }}
+            {% else %}
+                {{ form_row(form.fechaComunicacion) }}
+            {% endif %}
+        </div>
+        <div class="col s6 m3">
+            {{ form_row(form.fechaConfirmacion) }}
+        </div>
+        <div class="col s6 m3 ">
+            <label for="HoraSalidaAula">Hora de salida aula</label>
+            <input type="text" id="HoraSalidaAula" name="HoraSalidaAula" class="timepicker"
+                   required>
+        </div>
+        <div class="col s6 m3 ">
+            <label for="HoraLlegadaJefatura">Hora llegada jefatura</label>
+            <input type="text" id="HoraLlegadaJefatura" name="HoraLlegadaJefatura" class="timepicker" required>
+        </div>
+        <div class="" id="formu" style="display:none">
+            {{ form_widget(form) }}
+        </div>
+        <div id="contenedor" class="col s12 center" style="margin-bottom: 1%">
+            {% if app.request.get('idParte') is not null %}
+                <div class="col s12 center" style="margin-bottom: 1%">
+                    {% if sanciones != null and sanciones|length > 0 %}
+                        {% for sancion in sanciones %}
+                            <a class="btn z-depth-3 blue darken-2 waves-effect waves-light"
+                               href="{{ path('nueva_sancion', {'idSancion': sancion.id}) }}">{{ sancion.sancion }}</a>
+                        {% endfor %}
+                    {% else %}
+                        {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_CONVIVENCIA')  %}
+                            <a class="btn z-depth-3 blue darken-2 waves-effect waves-light"
+                               href="{{ path('nueva_sancion', {'idParte': parte.id, 'idAlumno': parte.idAlumno.id}) }}">Crear sanción</a>
+                        {% endif %}
+                    {% endif %}
+                </div>
+
+            {% endif %}
+            <div id="botonera" class="col s12 center">
+                <a href="{{ path('gestion_partes') }}" data-title="Cancelar" data-content="¿Desea volver a partes?"
+                   class="z-depth-3 btn blue darken-3 waves-effect waves-light botonSubmit confirm"
+                   style="margin-bottom: 1%">Cancelar
+                    <i class="material-icons left">undo</i>
+                </a>
+
+                <a id="submitEnlace" data-title="Comunicación SMS"
+                   data-content="Se va a realizar una comunicación sms, ¿desea continuar?"
+                   class="z-depth-3 btn blue darken-4 waves-effect waves-light botonSubmit confirm"
+                   style="margin-bottom: 1%; display: none">Enviar
+                    <i class="material-icons right">send</i>
+                </a>
+
+                <button id="boton" class="z-depth-3 btn blue darken-4 waves-effect waves-light  "
+                        style="margin-bottom: 1%">Enviar
+                    <i class="material-icons right">send</i>
+                </button>
+            </div>
+            {{ form_end(form) }}
+        </div>
+    </div>
+{% endblock %}

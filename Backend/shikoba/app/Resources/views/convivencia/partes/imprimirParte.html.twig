@@ -1,0 +1,155 @@
+{#
+Vista de impresión de parte.
+Actualizado por GUBS, RAGZ, 2019
+#}
+<meta charset="UTF-8"/>
+<link rel="stylesheet" type="text/css" href="{{ absolute_url(asset('css/partesEstilos.css')) }}">
+<div>
+    <div style="width: 10%;display: inline-block; margin-right: 20px">
+        <img src="{{ absolute_url(asset('img/logoJunta.svg.png')) }}"
+             width="90" height="70" alt="imagen">
+    </div>
+    <div style="width: 50%;display: inline-block;vertical-align: top;margin-top: 2%;margin-left:1%; font-size: 15px">
+        IES GRAN CAPITÁN. CÓRDOBA
+    </div>
+    <div style="width: 100%">
+        <h2 style="font-size: 20px; text-align: center; margin-top:0">PARTE DE INCIDENCIAS</h2>
+    </div>
+    <table>
+        <tr>
+            <td colspan="2" class="faltas">APELLIDOS DEL ALUMNO<br> {{ partes.idAlumno.apellido1 ~ " " ~ partes.idAlumno.apellido2 }}
+            </td>
+            <td class="faltas">NOMBRE DEL ALUMNO<br> {{ partes.idAlumno.nombre }}
+            </td>
+            <td class="curso">CURSO<br> {{ partes.idAlumno.idCurso.grupo }}
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">PROFESOR QUE TRAMITA EL PARTE
+                <br>{{ partes.idProfesor.nombre ~ " " ~ partes.idProfesor.apellido1 ~ " " ~ partes.idProfesor.apellido2 }}
+            </td>
+            {% if partes.idAlumno.idCurso.idTutor != null %}
+                <td colspan="2">TUTOR DEL GRUPO DEL ALUMNO
+                    <br>{{ partes.idAlumno.idCurso.idTutor.nombre ~ " " ~ partes.idAlumno.idCurso.idTutor.apellido1 ~ " "
+                    ~ partes.idAlumno.idCurso.idTutor.apellido2 }}
+                    <br>
+                </td>
+            {% else %}
+                <td colspan="2">TUTOR DEL GRUPO DEL ALUMNO<br>No existe tutor asignado<br>
+                </td>
+            {% endif %}
+        </tr>
+        <tr class="back">
+            <td colspan="4" class="back">CAUSAS DEL PARTE (marcar todas las que correspondan)</td>
+        </tr>
+        <tr class="back">
+            <td colspan="1" class="back">A/ FALTAS LEVES</td>
+            <td colspan="1" class="alig back">PUNTOS</td>
+            <td colspan="1" class="back">B/ FALTAS GRAVES</td>
+            <td colspan="1" class="alig back">PUNTOS</td>
+        </tr>
+        {% for conductas in partes.idConducta %}
+            <tr id="conducta">
+                {% if(conductas.puntos > -8) %}
+                    <td colspan="1" class="faltas">
+                        <input type="checkbox" checked id="{{ conductas.id }}">
+                        <label for="{{ conductas.id }}">{{ conductas.conducta }}</label>
+                    </td>
+                    <td colspan="1" class="faltas2 alig">{{ conductas.puntos }}</td>
+                    <td colspan="1" class="faltas"></td>
+                    <td colspan="1" class="faltas2 alig"></td>
+                {% else %}
+                    <td colspan="1" class="faltas"></td>
+                    <td colspan="1" class="faltas2 alig"></td>
+                    <td colspan="1" class="faltas">
+                        <input type="checkbox" checked id="{{ conductas.id }}">
+                        <label for="{{ conductas.id }}">{{ conductas.conducta }}</label>
+                    </td>
+                    <td colspan="1" class="faltas2 alig">{{ conductas.puntos }}</td>
+                {% endif %}
+            </tr>
+        {% endfor %}
+        <tr class="back">
+            <td colspan="4" class="back">DETALLE DE LA CONDUCTA</td>
+        </tr>
+        <tr>
+            <td colspan="4">
+                {% if partes.descripcion is null %}
+                    No es necesario
+                {% else %}
+                    {{ partes.descripcion }}
+                {% endif %}
+            </td>
+        </tr>
+        <tr class="back">
+            <td colspan="4" class="back">TAREA PROPUESTA</td>
+        </tr>
+        <tr>
+            <td colspan="4">
+                {% if partes.tareas is null %}
+                    No es necesario
+                {% else %}
+                    {{ partes.tareas }}
+                {% endif %}
+
+            </td>
+        </tr>
+        <tr class="back">
+            <td colspan="4" class="back">SI IMPLICA EXPULSIÓN DEL AULA</td>
+        </tr>
+        <tr>
+            <td class="expulsion">Hora de salida del aula</td>
+            <td class="expulsion">
+                {{ partes.horaSalidaAula|date('H:i') }}
+            </td>
+            <td class="expulsion">Hora de llegada a jefatura</td>
+            <td class="expulsion">
+                {{ partes.horaLlegadaJefatura|date('H:i') }}
+            </td>
+        </tr>
+        <tr>
+            <td class="expulsion">Fecha</td>
+            <td class="expulsion">
+                {{ partes.fecha|date('d/m/Y') }}
+            </td>
+            <td class="expulsion" style="border-right: 0">Firma del profesor</td>
+            <td class="expulsion" style="border-left: 0"><br></td>
+        </tr>
+        <tr>
+            {% if partes.recupera != 0 %}
+                <td colspan="4">
+                    <input type="checkbox" checked id="checkbo">
+                    <label for="checkbo" class="expulsion">
+                        Actitud correcta
+                        en el aula de convivencia y/o
+                        realización de tareas (Rebaja 1 punto)
+                    </label>
+                </td>
+            {% endif %}
+            {% if partes.recupera == 0 %}
+                <td colspan="4">
+                    <input type="checkbox" id="checkbo">
+                    <label class="expulsion" for="checkbo">Actitud
+                        correcta en el
+                        aula de convivencia y/o
+                        realización de tareas (Rebaja 1 punto)
+                    </label>
+                </td>
+            {% endif %}
+        </tr>
+    </table>
+    <br><br>
+
+    <div class="borde firma">
+        <p class="firma">D./Dña. _____________________________________________________________________________</p>
+        <p class="firma">padre/madre/tutor legal de
+            <b class="firma">{{ partes.idAlumno.nombre ~ " " ~ partes.idAlumno.apellido1 ~ " " ~ partes.idAlumno.apellido2 }}</b>,
+            ha recibido el Parte de Incidencias relativo a su hijo/a.</p>
+        <p class="firma">En Córdoba a ______ de ___________________ de 20_____</p>
+        <p class="firma">Firma</p><br>
+    </div>
+    <div style="font-size: 14px;text-align: center">
+        <br>El presente parte de incidencias se devolverá firmado al día
+        siguiente de su recepción.<br>En otro caso, el alumno será objeto de un nuevo parte sancionador)
+    </div>
+</div>

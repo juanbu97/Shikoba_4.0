@@ -1,0 +1,57 @@
+{% block header %}
+    {% if app.user.usuario is defined %}
+        <header class="w3-container w3-padding" style="background-color: #38889B; color: #FFFFFF">
+            <div style="text-align: center;">
+                <i id="hamburguer" class="fa fa-bars fa-2x w3-padding w3-left w3-text-white"
+                   style="vertical-align: middle" aria-hidden="true"></i>
+                <div id="navLeft">
+                    <a href="{{ path('logout') }}"
+                       class="w3-padding w3-right w3-hover-grey w3-large w3-mobile">Logout</a>
+                    <a href="{{ path('change_password') }}"
+                       class="w3-padding w3-right w3-hover-grey w3-large w3-mobile">Cambiar
+                        Contraseña</a>
+                    <a href="{{ path('index') }}"
+                       class="w3-padding w3-right w3-hover-grey w3-large w3-mobile">Shikoba</a>
+                </div>
+                <nav>
+                    {% if (is_granted('ROLE_ADMIN') or is_granted('ROLE_PROFESOR')) %}
+                        <a href="{{ path('show_carnets') }}"
+                           class="w3-padding w3-left w3-hover-grey w3-mobile w3-large">Carnets</a>
+                        <a href="{{ path('gestion_partes') }}"
+                           class="w3-padding w3-left w3-hover-grey w3-mobile w3-large">Partes</a>
+                        <a href="{{ path('gestion_sanciones') }}"
+                           class="w3-padding w3-left w3-hover-grey w3-mobile w3-large">Medidas</a>
+                        <a href="{{ path('show_diario') }}"
+                           class="w3-padding w3-left w3-hover-grey w3-mobile w3-large">Diario</a>
+
+                           {% if ( is_granted('ROLE_ADMIN') or is_granted('ROLE_PROFESOR') or is_granted('ROLE_CONVIVENCIA') or is_granted('ROLE_TUTOR_DOCENTE') ) %}
+                             <a class="w3-padding w3-left w3-hover-grey w3-mobile w3-large" href="{{ path('show_alumnos') }}">Alumnos</a>
+
+                           {% endif %}
+
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <div class="w3-dropdown-hover w3-padding w3-left w3-mobile w3-large">
+                                <span>Administración</span> <i class="fa fa-caret-down w3-text-white"></i>
+                                <div class="w3-dropdown-content w3-bar-block w3-card-1 azulTemaButton">
+                                    <a href="{{ path('admin_import') }}"
+                                       class=" w3-margin-top w3-padding w3-bar-item w3-button w3-hover-grey w3-text-white w3-mobile w3-large">Alumnado</a>
+                                    <a href="{{ path('admin_import_profesor') }}"
+                                       class="w3-padding w3-bar-item w3-button w3-hover-grey w3-text-white w3-mobile w3-large">Profesorado</a>
+                                    <a href="{{ path('admin_security') }}"
+                                       class="w3-padding w3-bar-item w3-button w3-hover-grey w3-text-white w3-mobile w3-large">Copia de seguridad</a>
+                                </div>
+                            </div>
+                        {% endif %}
+
+                    {% elseif is_granted('ROLE_TUTOR') %}
+                        <a href="{{ path('index') }}"
+                           class="w3-padding w3-mobile w3-left w3-hover-grey w3-large">Alumnado</a>
+                        {#{% elseif is_granted('ROLE_USER') %}#}
+                        {#<a href="{{ path('registrarAlumno') }}"#}
+                        {#class="w3-padding w3-mobile w3-left w3-hover-grey w3-large">Perfil</a>#}
+                    {% endif %}
+                </nav>
+            </div>
+        </header>
+    {% endif %}
+{% endblock %}

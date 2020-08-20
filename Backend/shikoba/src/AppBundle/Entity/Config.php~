@@ -1,0 +1,65 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Config
+ *
+ * @ORM\Table(name="config")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\ConfigRepository")
+ */
+class Config
+{
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="dias_validez", type="integer")
+     */
+    private $diasValidez;
+
+
+    /**
+     * Get id
+     *
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set diasValidez
+     *
+     * @param string $diasValidez
+     *
+     * @return Config
+     */
+    public function setDiasValidez($diasValidez)
+    {
+        $this->diasValidez = $diasValidez;
+
+        return $this;
+    }
+
+    /**
+     * Get diasValidez
+     *
+     * @return string
+     */
+    public function getDiasValidez()
+    {
+        return $this->diasValidez;
+    }
+}

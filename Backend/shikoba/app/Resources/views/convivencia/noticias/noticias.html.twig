@@ -1,0 +1,115 @@
+{#
+Vista de noticias.
+Actualizado por GUBS, RAGZ, 2019
+#}
+{% extends 'base2.html.twig' %}
+
+{% block stylesheets %}
+	{{ parent() }}
+	<style>
+		#resultados-contenido {
+			border: 1px solid black;
+			padding: 30px;
+			border-radius: 20px;
+			box-shadow: 10px 11px 4px -6px rgba(0, 0, 0, 0.37);
+			margin-bottom: 25px;
+		}
+	</style>
+{% endblock %}
+{% block body %}
+	{% include 'convivencia/navegacion.html.twig' %}
+	<div class="">
+		<h3 class="center azul-prof fuente">Noticias</h3>
+		<div class="row center">
+			<a href="{{ path('nuevaNoticia') }}" class="btn z-depth-3 blue darken-3 waves-effect waves-light" title="Nueva noticia">Nueva<i class="material-icons right" style="margin-top: -2%;">add</i>
+			</a>
+		</div>
+		<div class="col s12 l5 offset-l5 center">
+			{% for flash_message in app.session.flashBag.get('noticia') %}
+				<div class="card-panel green white-text flash">
+					<span class="spancaja">{{ flash_message }}
+					</span>
+					<i class="material-icons spanico">done</i>
+				</div>
+			{% endfor %}
+
+			{% for flash_message in app.session.flashBag.get('noticiaError') %}
+				<div class="card-panel red white-text flash">
+					<span class="spancaja">{{ flash_message }}</span>
+					<i class="material-icons spanico">clear</i>
+				</div>
+			{% endfor %}
+
+		</div>
+		<div class="divider3"></div>
+		<div style="width: 100%; display: grid; grid-template-columns: repeat(2, 50%); gap: 20px; text-align: center; padding: 6%; margin-top: -40px">
+			{% for noticia in noticias %}
+				<div id="resultados-contenido" style="margin-right:4%; margin-left:4%">
+					<div class="col-content">
+						<div style="display: flex; justify-content: space-between; align-self: center;">
+							<div>
+								<p style="display:inline-block;" id="grupo">
+									<b>Titulo:
+									</b>
+									{{ noticia.titulo }}</p>
+								<p style="display:inline-block" id="puntos">
+									<b>Descripción:
+									</b>
+									{{ noticia.descripcion }}.</p>
+							</div>
+							<div>
+								{% if is_granted('ROLE_CONVIVENCIA') %}
+									<p style="display:inline-block">
+										<a href="{{ path('editNoticia', {'id': noticia.id}) }}">
+											<i class="material-icons">edit</i>
+										</a>
+									</p>
+									<p style="display:inline-block">
+										<a class="confirm paddingRightLeft" href="{{ path('borrar_noticia', {'id': noticia.id}) }}" data-content="Se va a eliminar la noticia, ¿desea continuar?" data-title="Eliminar noticia">
+											<i class="material-icons ">delete</i>
+										</a>
+									</p>
+								{% endif %}
+							</div>
+						</div>
+						<div style="padding: 2%">
+							<p class="video-container" id="noticiatd" id="texto">{{ noticia.codigoEmbebido|raw }}</p>
+						</div>
+						<div>
+							{% if eventoNoticia(noticia.id) %}
+								<b>Eventos:</b>
+								{% for evento in eventoNoticia(noticia.id) %}
+									<div class="col-content">
+										{{evento.descripcion  }}
+										<a class="confirm paddingRightLeft" href="{{ path('eliminarEvento', {'idEvento': evento.id , 'idNoticia': noticia.id}) }}" data-content="Se va a eliminar la noticia, ¿desea continuar?" data-title="Eliminar noticia">
+											<i class="material-icons ">delete</i>
+										</a>
+									</div>
+								{% endfor %}
+							{% else %}
+								<b>Eventos:</b>
+								Esta noticia no tiene ningun evento asociado
+							{% endif %}
+						</div>
+
+						<div class="row center">
+
+							{% if not isPublished(noticia.id) %}
+								<a href="{{ path('publicacion', {'id': noticia.id})}}" class="btn z-depth-3 blue darken-3 waves-effect waves-light" title="Publicar">Publicar<i class="material-icons right" style="margin-top: -2%;">send</i>
+								</a>
+
+							{% else %}
+								<a href="{{ path('publicaciones_borrar', {'id': idPublicacion(noticia.id)})}}" class="btn z-depth-3 blue darken-3 waves-effect waves-light" title="Publicar">Ocultar<i class="material-icons right" style="margin-top: -2%;">undo</i>
+								</a>
+							{% endif %}
+							<a href="{{ path('asociarEvento', {'id': noticia.id})}}" class="btn z-depth-3 blue darken-3 waves-effect waves-light" title="Publicar">Asociar Evento
+								<i class="material-icons right" style="margin-top: -2%;">insert_invitation</i>
+							</a>
+
+						</div>
+					</div>
+				</div>
+			{% endfor %}
+		</div>
+	</div>
+{% endblock %}

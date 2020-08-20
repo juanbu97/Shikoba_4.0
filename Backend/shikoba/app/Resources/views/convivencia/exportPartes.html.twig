@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="w3-col s10 w3-display-middle">
+        <h1 class="w3-center">Exportar partes</h1>
+
+        {% for flash_message in app.session.flashBag.get('exportar') %}
+            <div class="w3-panel w3-pale-green w3-round-large">
+                <p class="w3-center">{{ flash_message }}</p>
+            </div>
+        {% endfor %}
+
+        {% for flash_message in app.session.flashBag.get('exportarError') %}
+            <div class="w3-panel w3-pale-red w3-round-large">
+                <p class="w3-center">{{ flash_message }}</p>
+            </div>
+        {% endfor %}
+
+        <div class="w3-row w3-center">
+            <div class="contenedorCartaAlumno">
+                <form action="{{ path('admin_export_partes') }}" method="post" class="formExport w3-content ">
+                    <label class="w3-text-teal marginTop">Rango fechas</label>
+                    <input type="text" name="fecha" class="daterange w3-select w3-border w3-light-grey" required>
+                    <label class="w3-text-teal marginTop">Alumno</label>
+                    <select name="alumnos" class="w3-select w3-border w3-light-grey chosen-select" required>
+                        <option value="Todos">Todos</option>
+                        {% for alumno in alumnos %}
+                            <option value="{{ alumno.id }}">{{ alumno.getNombreCompletoYCurso() }}</option>
+                        {% endfor %}
+                    </select>
+                    <label class="w3-text-teal marginTop">Curso</label>
+                    <select name="cursos" class="w3-select w3-border w3-light-grey chosen-select" required>
+                        <option value="Todos">Todos</option>
+                        {% for cursoElegido in cursos %}
+                            <option value="{{ cursoElegido.id }}">{{ cursoElegido.getGrupo() }}</option>
+                        {% endfor %}
+                    </select>
+                    <label class="w3-text-teal marginTop">Profesores</label>
+                    <select name="profesores" class="w3-select w3-border w3-light-grey chosen-select" required>
+                        <option value="Todos">Todos</option>
+                        {% for profesor in profesores %}
+                            <option value="{{ profesor.id }}">{{ profesor.getNombreCompleto() }}</option>
+                        {% endfor %}
+                    </select>
+                    <input class="w3-button w3-text-white" type="submit" name="exportar" value="Exportar">
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

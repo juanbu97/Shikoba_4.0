@@ -1,0 +1,129 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * rPartesConductas
+ *
+ * @ORM\Table(name="r_partes_conductas")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\rPartesConductasRepository")
+ */
+class rPartesConductas
+{
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="puntos", type="integer")
+     */
+    private $puntos;
+
+    /**
+     * @var int
+     *
+     * @ORM\ManyToOne(targetEntity="Partes", inversedBy="parteConducta")
+     * @ORM\JoinColumn(name="idParte", referencedColumnName="id")
+     */
+    private $idParte;
+
+    /**
+     * @var int
+     *
+     * @ORM\ManyToOne(targetEntity="Conductas", inversedBy="parteConducta")
+     * @ORM\JoinColumn(name="idConducta", referencedColumnName="id")
+     */
+    private $idConducta;
+
+
+    /**
+     * Get id
+     *
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set puntos
+     *
+     * @param integer $puntos
+     *
+     * @return rPartesConductas
+     */
+    public function setPuntos($puntos)
+    {
+        $this->puntos = $puntos;
+
+        return $this;
+    }
+
+    /**
+     * Get puntos
+     *
+     * @return int
+     */
+    public function getPuntos()
+    {
+        return $this->puntos;
+    }
+
+    /**
+     * Set idParte
+     *
+     * @param integer $idParte
+     *
+     * @return rPartesConductas
+     */
+    public function setIdParte($idParte)
+    {
+        $this->idParte = $idParte;
+
+        return $this;
+    }
+
+    /**
+     * Get idParte
+     *
+     * @return int
+     */
+    public function getIdParte()
+    {
+        return $this->idParte;
+    }
+
+    /**
+     * Set idConducta
+     *
+     * @param integer $idConducta
+     *
+     * @return rPartesConductas
+     */
+    public function setIdConducta($idConducta)
+    {
+        $this->idConducta = $idConducta;
+
+        return $this;
+    }
+
+    /**
+     * Get idConducta
+     *
+     * @return int
+     */
+    public function getIdConducta()
+    {
+        return $this->idConducta;
+    }
+}

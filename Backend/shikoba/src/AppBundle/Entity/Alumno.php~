@@ -1,0 +1,509 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
+/**
+ * Alumno
+ *
+ * @ORM\Table(name="alumno")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\AlumnoRepository")
+ */
+class Alumno
+{
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="nombre", type="string", length=255)
+     * @Assert\NotBlank()
+     */
+    private $nombre;
+
+    /**
+     * @var int
+     *
+     * @ORM\ManyToOne(targetEntity="Usuarios", inversedBy="alumno")
+     * @ORM\JoinColumn(name="idUsuario", referencedColumnName="id", onDelete="CASCADE")
+     */
+    private $idUsuario;
+
+    /**
+     * @var int
+     * @ORM\ManyToMany(targetEntity="Tutores")
+     * @ORM\JoinColumn(name="idTutor", referencedColumnName="id")
+     */
+    private $idTutor;
+
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="apellido1", type="string", length=255)
+     * @Assert\NotBlank()
+     */
+    private $apellido1;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="apellido2", type="string", length=255)
+     * @Assert\NotBlank()
+     */
+    private $apellido2;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="nie", type="integer", nullable=true)
+     * @Assert\NotBlank()
+     */
+    private $nie;
+
+    /**
+     * @var string
+     * @ORM\ManyToOne(targetEntity="Cursos")
+     * @ORM\JoinColumn(name="idCurso", referencedColumnName="id")
+     */
+    private $idCurso;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="telefono", type="string", length=70)
+     * @Assert\NotBlank()
+     */
+    private $telefono;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="email", type="string", length=150)
+     * @Assert\Email(
+     *      message = "The email '{{ value }}' is not a valid email.",
+     *      checkMX = true
+     * )
+     */
+    private $email;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="direccion", type="string", length=100)
+     * @Assert\NotBlank()
+     */
+    private $direccion;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="codpostal", type="string", length=5)
+     * @Assert\NotBlank()
+     */
+    private $codigoPostal;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="foto", type="string", length=255, nullable=true)
+     */
+    private $foto;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="puntos", type="integer")
+     */
+    private $puntos;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="puntosIniciales", type="integer")
+     */
+    private $puntosIniciales;
+
+
+    /**
+     * Función que devuelve el nombre completo del alumno
+     * @return string
+     */
+    public function getNombreCompleto()
+    {
+        return $this->getNombre() . ' ' . $this->getApellido1() . ' ' . $this->getApellido2();
+    }
+
+    public function getNombreCompletoYCurso()
+    {
+        if ($this->getIdCurso() != null && $this->getIdCurso()->getGrupo())
+            return $this->getNombre() . ' ' . $this->getApellido1()
+                . ' ' . $this->getApellido2() . ' - ' . $this->getIdCurso()->getGrupo();
+        else
+            return $this->getNombreCompleto();
+    }
+
+    /**
+     * Get id
+     *
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set nombre
+     *
+     * @param string $nombre
+     *
+     * @return Alumno
+     */
+    public function setNombre($nombre)
+    {
+        $this->nombre = $nombre;
+
+        return $this;
+    }
+
+    /**
+     * Get nombre
+     *
+     * @return string
+     */
+    public function getNombre()
+    {
+        return $this->nombre;
+    }
+
+    /**
+     * Set apellido1
+     *
+     * @param string $apellido1
+     *
+     * @return Alumno
+     */
+    public function setApellido1($apellido1)
+    {
+        $this->apellido1 = $apellido1;
+
+        return $this;
+    }
+
+    /**
+     * Get apellido1
+     *
+     * @return string
+     */
+    public function getApellido1()
+    {
+        return $this->apellido1;
+    }
+
+    /**
+     * Set apellido2
+     *
+     * @param string $apellido2
+     *
+     * @return Alumno
+     */
+    public function setApellido2($apellido2)
+    {
+        $this->apellido2 = $apellido2;
+
+        return $this;
+    }
+
+    /**
+     * Get apellido2
+     *
+     * @return string
+     */
+    public function getApellido2()
+    {
+        return $this->apellido2;
+    }
+
+    /**
+     * Set nie
+     *
+     * @param integer $nie
+     *
+     * @return Alumno
+     */
+    public function setNie($nie)
+    {
+        $this->nie = $nie;
+
+        return $this;
+    }
+
+    /**
+     * Get nie
+     *
+     * @return int
+     */
+    public function getNie()
+    {
+        return $this->nie;
+    }
+
+    /**
+     * Set idCurso
+     *
+     * @param string $idCurso
+     *
+     * @return Alumno
+     */
+    public function setIdCurso($idCurso)
+    {
+        $this->idCurso = $idCurso;
+
+        return $this;
+    }
+
+    /**
+     * Get idCurso
+     *
+     * @return string
+     */
+    public function getIdCurso()
+    {
+        return $this->idCurso;
+    }
+
+    /**
+     * @return int
+     */
+    public function getIdTutor()
+    {
+        return $this->idTutor;
+    }
+
+    /**
+     * @param int $idTutor
+     */
+    public function setIdTutor($idTutor)
+    {
+        $this->idTutor = $idTutor;
+    }
+
+    /**
+     * Set telefono
+     *
+     * @param string $telefono
+     *
+     * @return Alumno
+     */
+    public function setTelefono($telefono)
+    {
+        $this->telefono = $telefono;
+
+        return $this;
+    }
+
+    /**
+     * Get telefono
+     *
+     * @return string
+     */
+    public function getTelefono()
+    {
+        return $this->telefono;
+    }
+
+    /**
+     * Set email
+     *
+     * @param string $email
+     *
+     * @return Alumno
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    /**
+     * Get email
+     *
+     * @return string
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    /**
+     * Set direccion
+     *
+     * @param string $direccion
+     *
+     * @return Alumno
+     */
+    public function setDireccion($direccion)
+    {
+        $this->direccion = $direccion;
+
+        return $this;
+    }
+
+    /**
+     * Get direccion
+     *
+     * @return string
+     */
+    public function getDireccion()
+    {
+        return $this->direccion;
+    }
+
+    /**
+     * Set puntos
+     *
+     * @param integer $puntos
+     *
+     * @return Alumno
+     */
+    public function setPuntos($puntos)
+    {
+        $this->puntos = $puntos;
+
+        return $this;
+    }
+
+    /**
+     * Get puntos
+     *
+     * @return int
+     */
+    public function getPuntos()
+    {
+        return $this->puntos;
+    }
+
+    /**
+     * Set idUsuario
+     *
+     * @param \AppBundle\Entity\Usuarios $idUsuario
+     *
+     * @return Alumno
+     */
+    public function setIdUsuario(\AppBundle\Entity\Usuarios $idUsuario = null)
+    {
+        $this->idUsuario = $idUsuario;
+
+        return $this;
+    }
+
+    /**
+     * Get idUsuario
+     *
+     * @return \AppBundle\Entity\Usuarios
+     */
+    public function getIdUsuario()
+    {
+        return $this->idUsuario;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCodigoPostal()
+    {
+        return $this->codigoPostal;
+    }
+
+    /**
+     * @param string $codigoPostal
+     */
+    public function setCodigoPostal($codigoPostal)
+    {
+        $this->codigoPostal = $codigoPostal;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFoto()
+    {
+        return $this->foto;
+    }
+
+    /**
+     * @param string $foto
+     */
+    public function setFoto($foto)
+    {
+        $this->foto = $foto;
+    }
+
+
+
+    /**
+     * Set puntosIniciales
+     *
+     * @param integer $puntosIniciales
+     *
+     * @return Alumno
+     */
+    public function setPuntosIniciales($puntosIniciales)
+    {
+        $this->puntosIniciales = $puntosIniciales;
+
+        return $this;
+    }
+
+    /**
+     * Get puntosIniciales
+     *
+     * @return integer
+     */
+    public function getPuntosIniciales()
+    {
+        return $this->puntosIniciales;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->idTutor = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add idTutor
+     *
+     * @param \AppBundle\Entity\Tutores $idTutor
+     *
+     * @return Alumno
+     */
+    public function addIdTutor(\AppBundle\Entity\Tutores $idTutor)
+    {
+        $this->idTutor[] = $idTutor;
+
+        return $this;
+    }
+
+    /**
+     * Remove idTutor
+     *
+     * @param \AppBundle\Entity\Tutores $idTutor
+     */
+    public function removeIdTutor(\AppBundle\Entity\Tutores $idTutor)
+    {
+        $this->idTutor->removeElement($idTutor);
+    }
+}

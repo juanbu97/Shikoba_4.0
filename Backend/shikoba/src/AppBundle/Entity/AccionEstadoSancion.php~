@@ -1,0 +1,102 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * AccionEstadoSancion
+ *
+ * @ORM\Table(name="accion_estado_sancion")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\AccionEstadoSancionRepository")
+ */
+class AccionEstadoSancion
+{
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\ManyToOne(targetEntity="EstadosSancion")
+     * @ORM\JoinColumn(name="estado", referencedColumnName="id")
+     */
+    private $estado;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="accion", type="string", length=255)
+     */
+    private $accion;
+
+
+    /**
+     * Get id
+     *
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set estado
+     *
+     * @param string $estado
+     *
+     * @return AccionEstadoSancion
+     */
+    public function setEstado($estado)
+    {
+        $this->estado = $estado;
+
+        return $this;
+    }
+
+    /**
+     * Get estado
+     *
+     * @return string
+     */
+    public function getEstado()
+    {
+        return $this->estado;
+    }
+
+    /**
+     * Set accion
+     *
+     * @param string $accion
+     *
+     * @return AccionEstadoSancion
+     */
+    public function setAccion($accion)
+    {
+        $this->accion = $accion;
+
+        return $this;
+    }
+
+    /**
+     * Get accion
+     *
+     * @return string
+     */
+    public function getAccion()
+    {
+        return $this->accion;
+    }
+
+    function __toString()
+    {
+        return $this->accion;
+    }
+}

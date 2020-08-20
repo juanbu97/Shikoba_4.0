@@ -1,0 +1,128 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * DetalleDiarioSancionHora
+ *
+ * @ORM\Table(name="detalle_diario_sancion_hora")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\DetalleDiarioSancionHoraRepository")
+ */
+class DetalleDiarioSancionHora
+{
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var int
+     *
+     * @ORM\ManyToOne(targetEntity="Sanciones")
+     * @ORM\JoinColumn(name="idSancion", referencedColumnName="id", onDelete="CASCADE")
+     */
+    private $idSancion;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="fecha", type="datetime")
+     */
+    private $fecha;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="hora", type="integer")
+     */
+    private $hora;
+
+
+    /**
+     * Get id
+     *
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set idSancion
+     *
+     * @param integer $idSancion
+     *
+     * @return DetalleDiarioSancionHora
+     */
+    public function setIdSancion($idSancion)
+    {
+        $this->idSancion = $idSancion;
+
+        return $this;
+    }
+
+    /**
+     * Get idSancion
+     *
+     * @return int
+     */
+    public function getIdSancion()
+    {
+        return $this->idSancion;
+    }
+
+    /**
+     * Set hora
+     *
+     * @param int $hora
+     *
+     * @return DetalleDiarioSancionHora
+     */
+    public function setHora($hora)
+    {
+        $this->hora = $hora;
+
+        return $this;
+    }
+
+    /**
+     * Get hora
+     *
+     * @return int
+     */
+    public function getHora()
+    {
+        return $this->hora;
+    }
+
+    /**
+     * Set fecha
+     *
+     * @param \DateTime $fecha
+     *
+     * @return DetalleDiarioSancionHora
+     */
+    public function setFecha($fecha)
+    {
+        $this->fecha = $fecha;
+
+        return $this;
+    }
+
+    /**
+     * Get fecha
+     *
+     * @return \DateTime
+     */
+    public function getFecha()
+    {
+        return $this->fecha;
+    }
+}

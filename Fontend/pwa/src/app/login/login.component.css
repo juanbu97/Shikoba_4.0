@@ -1,0 +1,78 @@
+.login {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  background: linear-gradient(rgba(0, 0, 0, 0.856), rgba(0, 0, 0, 0.856)), url('../../assets/img/clase.jpeg');
+  background-size: cover;
+}
+
+body {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+main {
+  flex: 1 0 auto;
+}
+
+
+.fondo{
+  display: flex;
+  min-height: 95vh;
+  flex-direction: column;
+}
+
+.boton{
+  text-align: center;
+  padding-top: 20px;
+}
+
+.btn{
+    color:#fff;
+    height: 3em;
+
+}
+
+.btn img{
+  width: 32px;
+  display: inline-block;
+  vertical-align: middle;
+  padding: 0px 2px 4px 0px;
+}
+
+.btn div{
+  display: inline-block;
+}
+
+.logo-img{
+  padding: 20px;
+  width: 100%;
+}
+
+.logo{
+  text-align: center;
+  padding-top: 20px;
+}
+
+.cajaInfo{
+  font-size: 20px;
+  text-align: center;
+  color: white;
+  padding: 17px;
+}
+
+@media screen and (min-width:480px) {
+  .login {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+    background: linear-gradient(rgba(0, 0, 0, 0.856), rgba(0, 0, 0, 0.856)), url('../../assets/img/clase1.jpeg');
+    background-size: cover;
+  }
+
+  .logo-img{
+    padding: 20px;
+    width: 60vh;
+  }
+}

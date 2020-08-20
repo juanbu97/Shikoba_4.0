@@ -1,0 +1,104 @@
+{% extends 'base2.html.twig' %}
+
+{% block body %}
+    {% include 'convivencia/navegacion.html.twig' %}
+
+    {#<div class="">
+        {% if ( is_granted('ROLE_PROFESOR')) %}
+            <h3 class="center azul-prof fuente">Tutoría</h3>
+        {% else %}
+        <h3 class="center azul-prof fuente">Gestión Alumnos</h3>
+
+        {% endif %}
+
+
+        <div class="col s12 l4 offset-l4 center">
+            {% for flash_message in app.session.flashBag.get('alumno') %}
+                <div class="card-panel green white-text" style="position: relative;">
+                    <span class="spancaja">{{ flash_message }} </span><i class="material-icons spanico">done</i>
+                </div>
+            {% endfor %}
+
+            {% for flash_message in app.session.flashBag.get('alumnoError') %}
+                <div class="card-panel red white-text" style="position: relative;">
+                    <span class="spancaja">{{ flash_message }}</span> <i class="material-icons spanico">clear</i>
+                </div>
+            {% endfor %}
+        </div>
+
+        <form action="">
+          <div class="row" id="busq">
+
+              <div class="col s12 l6">
+                  <div class="row">
+                      <div class="i-checks col s12 right-align" style="margin-top: 8%;padding-left: 0;" id="aqui">
+
+
+                          #}{#<div class="" id="botonbus" style="margin-left: -5%;">
+                              <button class=" z-depth-3 btn btn-floating blue darken-3 waves-effect waves-light"
+                                      type="submit"
+                                      value="Buscar" title="Buscar"><i
+                                          class="material-icons right">search</i></button>
+
+                          </div>#}{#
+                      </div>
+
+
+                  </div>
+              </div>
+          </div>
+
+            <div class="row">
+                <table class="responsive-table highlight tableData z-depth-3" data-order='[[ 0, "desc" ]]' data-page-length='10' style="margin-bottom: 1%">
+                    <thead>
+                    <tr class="blue darken-3 white-text">
+                        <th>Nombre</th>
+                        <th>Nie</th>
+                        <th>Telefono</th>
+                        <th>Cod.Postal</th>
+                        <th>Puntos</th>
+                        <th>TutorL1</th>
+                        <th>TutorL2</th>
+                        <th>Tlf. TutorL1</th>
+                        <th>Tlf. TutorL2</th>
+                        <th>Accion</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for alumno in alumnos %}
+                        <tr>
+                            <td>
+                                {% if ( is_granted('ROLE_ADMIN')) %}
+                                    <a href="{{ path('editarAlumno', { 'id': alumno.id}) }}">
+                                        {{ alumno.getNombreCompletoYCurso() }}
+                                    </a>
+                                {% endif %}
+                                {% if ( is_granted('ROLE_PROFESOR')) %}
+                                        {{ alumno.getNombreCompletoYCurso() }}
+                                {% endif %}
+
+                            </td>
+                            <td>{{ alumno.nie }}</td>
+                            <td>{{ alumno.telefono }}</td>
+                            <td>{{ alumno.codigoPostal }}</td>
+                            <td>{{ alumno.puntos }}</td>
+                            <td>{{ alumno.tutorL1 }}</td>
+                            <td>{{ alumno.tutorL2 }}</td>
+                            <td>{{ alumno.telefonoTL1 }}</td>
+                            <td>{{ alumno.telefonoTL2 }}</td>
+                            <td>
+                                {% if ( is_granted('ROLE_ADMIN') or is_granted('ROLE_PROFESOR')) %}
+                                    <a href="{{ path('editarAlumno', { 'id': alumno.id}) }}">
+                                        <i class="material-icons">edit</i>
+                                    </a>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+        </form>
+    </div>#}
+{% endblock %}

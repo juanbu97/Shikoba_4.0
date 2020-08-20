@@ -1,0 +1,498 @@
+/* latin-ext */
+@font-face {
+    font-family: 'Raleway';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Raleway'), local('Raleway-Regular'),
+    url(../fonts/raleway/raleway.woff2) format('woff2');
+    unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+    font-family: 'Raleway';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Raleway'), local('Raleway-Regular'), url(../fonts/raleway/raleway-simple.woff2) format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+    font-family: 'Material Icons';
+    font-style: normal;
+    font-weight: 400;
+    src: url(../fonts/materialicons/MaterialIcons-Regular.eot); /* For IE6-8 */
+    src: local('Material Icons'),
+    local('MaterialIcons-Regular'),
+    url(../fonts/materialicons/MaterialIcons-Regular.woff2) format('woff2'),
+    url(../fonts/materialicons/MaterialIcons-Regular.woff) format('woff'),
+    url(../fonts/materialicons/MaterialIcons-Regular.ttf) format('truetype');
+}
+
+.material-icons {
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;  /* Preferred icon size */
+    display: inline-block;
+    line-height: 1;
+    text-transform: none;
+    letter-spacing: normal;
+    word-wrap: normal;
+    white-space: nowrap;
+    direction: ltr;
+
+    /* Support for all WebKit browsers. */
+    -webkit-font-smoothing: antialiased;
+    /* Support for Safari and Chrome. */
+    text-rendering: optimizeLegibility;
+
+    /* Support for Firefox. */
+    -moz-osx-font-smoothing: grayscale;
+
+    /* Support for IE. */
+    font-feature-settings: 'liga';
+}
+
+
+/*hay que poner esto para el footer este abajo siempre*/
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+/*hay que poner esto para el footer este abajo siempre*/
+
+main {
+    flex: 1 0 auto;
+}
+
+
+/*la barra lateral en responsive se esconde la capa*/
+#sidenav-overlay {
+    z-index: 996;
+}
+
+/*la barra lateral en responsive se esconde la capa*/
+
+.nav-wrapper {
+    z-index: 50;
+}
+
+/*Fuente principañ*/
+#catalogo span {
+    font-family: 'Open Sans', serif;
+    font-size: 16px;
+    line-height: 3;
+}
+
+/*color para los titulos*/
+.azul-prof {
+    text-shadow: 1px 1px 1px black;
+    color: #1565c0 !important;
+}
+
+/*fuente por defecto*/
+.font16 {
+    font-size: 16px;
+}
+
+/*fuente de titulos*/
+.font40 {
+    font-size: 40px;
+}
+
+/*sombreado de fuentes*/
+.fontshadow {
+    text-shadow: 1px 1px 1px black;
+}
+
+/*diferentes tiposd de separadores*/
+.divider2 {
+    height: 100px;
+    overflow: hidden;
+}
+
+.divider1 {
+    height: 50px;
+    overflow: hidden;
+}
+
+.divider3 {
+    height: 25px;
+    overflow: hidden;
+}
+
+/*centrar en en marco*/
+.centro {
+    margin: 0 auto;
+}
+
+/*Fuente principal para el titulo*/
+.fuente {
+    font-family: 'Raleway', sans-serif;
+}
+
+/*logo al tamaño del nav*/
+.nav-wrapper img {
+    height: 50px;
+}
+
+/*color para que los botones esten iguales*/
+#dropdown1 li a:hover {
+    background-color: #135BAC !important;
+}
+
+.ancla:hover {
+    background-color: transparent;
+}
+
+.card .card-action a:not(.btn):not(.btn-large):not(.btn-large):not(.btn-floating) {
+    color: #BAC1F0 !important;
+}
+
+.card .card-action a:not(.btn):not(.btn-large):not(.btn-large):not(.btn-floating):hover {
+    color: #EAECF7 !important;
+}
+
+.waves-effect.waves-blue .waves-ripple {
+    background-color: rgba(48, 63, 159, 0.65);
+}
+
+input:not([type]):focus:not([readonly]), input[type=text]:focus:not([readonly]), input[type=password]:focus:not([readonly]), input[type=email]:focus:not([readonly]), input[type=url]:focus:not([readonly]), input[type=time]:focus:not([readonly]), input[type=date]:focus:not([readonly]), input[type=datetime]:focus:not([readonly]), input[type=datetime-local]:focus:not([readonly]), input[type=tel]:focus:not([readonly]), input[type=number]:focus:not([readonly]), input[type=search]:focus:not([readonly]), textarea.materialize-textarea:focus:not([readonly]) {
+    border-bottom: 1px solid #303f9f !important;
+    box-shadow: 0 1px 0 0 #303f9f !important;
+}
+
+input:not([type]):focus:not([readonly]) + label, input[type=text]:focus:not([readonly]) + label, input[type=password]:focus:not([readonly]) + label, input[type=email]:focus:not([readonly]) + label, input[type=url]:focus:not([readonly]) + label, input[type=time]:focus:not([readonly]) + label, input[type=date]:focus:not([readonly]) + label, input[type=datetime]:focus:not([readonly]) + label, input[type=datetime-local]:focus:not([readonly]) + label, input[type=tel]:focus:not([readonly]) + label, input[type=number]:focus:not([readonly]) + label, input[type=search]:focus:not([readonly]) + label, textarea.materialize-textarea:focus:not([readonly]) + label {
+    color: #303f9f !important;
+}
+
+/*color para los chosen en select*/
+#appbundle_diarioaulaconvivencia_asiste_chosen .dropdown-content li > a, .dropdown-content li > span {
+    color: #303f9f !important;
+}
+
+/*le quito el borde a las tablas*/
+th {
+    border-radius: 0;
+}
+
+/*muevo los botones con icono para verlo mejor*/
+.spancaja {
+    position: absolute;
+    right: 25%;
+    left: 25%;
+    margin-top: -10px;
+}
+
+.spanico {
+    position: absolute;
+    margin-top: -11px;
+    right: 10%;
+}
+
+/*boton check de historico*/
+.checkbus {
+    position: relative;
+    float: left;
+    margin-right: 5px;
+    margin-top: 4%;
+}
+
+/*separacion paginacion datatable*/
+.pagi {
+    margin: 0 0.5%;
+}
+
+/*estilo en responsive para que las cajas esten todas iguales del datatable*/
+@media screen and (max-width: 990px) {
+    #DataTables_Table_0 td {
+        padding: 15px 18px;
+    }
+}
+
+/*Color de los enlaces de las tablas*/
+#DataTables_Table_0 tbody a {
+    color: inherit;
+}
+
+/*color iconos tablas*/
+#DataTables_Table_0 tbody a i {
+    color: #1565c0 !important;
+}
+
+/*caja busqueda avanzada de cursos*/
+#cursos {
+    display: none;
+}
+
+/*checkbox*/
+[type="checkbox"]:checked + label:before {
+    border-right: 2px solid #1565C0;
+    border-bottom: 2px solid #1565C0;
+}
+
+/*amimacion entrada chosen*/
+.chosen-drop {
+    -vendor-animation-duration: 0.5s !important;
+    -vendor-animation-delay: 0.5s !important;
+}
+
+/*margen arriba form partes*/
+.mtop {
+    margin-top: 1%;
+}
+
+/*conductas de los partes*/
+.selectForm input {
+    display: block;
+    vertical-align: middle;
+    width: 8%;
+}
+
+.selectForm label {
+    display: inline-block;
+    vertical-align: top;
+    width: 100%;
+    margin-bottom: 1%;
+}
+
+/*altura del label para los multilinea*/
+.altura {
+    height: auto !important;
+}
+
+/*estilo del reloj*/
+.picker--focused .picker__day--selected, .picker__date-display {
+    background-color: #1565c0;
+}
+
+.picker__close, .picker__today {
+    color: #1565c0 !important;
+}
+
+.clockpicker-canvas line {
+    stroke: #1565c0;
+}
+
+.clockpicker-canvas-bg, .clockpicker-canvas-bearing {
+    fill: #1565c0;
+}
+
+/*Loader de las paginas*/
+.loaderIntro {
+    width: 100px;
+    height: 100px;
+    margin: 40px auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    bottom: 50%;
+    right: 50%;
+    z-index: 50000;
+    margin-left: -30px;
+    margin-top: -60px;
+}
+
+/*Colocacion al centro de las cartas de tutor*/
+.carta {
+    display: inline-block !important;
+    float: inherit !important;
+}
+
+/*Colocacion cartas en resolucion pequeña*/
+@media (max-width: 600px) {
+    .ancho {
+        width: 49% !important;
+    }
+}
+
+/*Fondo login*/
+#fondo .back {
+    background-color: rgba(0, 0, 0, .9);
+}
+
+#fondo {
+    background-image: url('../img/class.jpeg');
+    background-size: cover;
+}
+
+/*boton subir imagen*/
+.inputfile {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+}
+
+.inputfile + label {
+    border: none;
+    border-radius: 2px;
+    font-size: 1.25em;
+    font-weight: 700;
+    color: white;
+    background-color: #1565c0;
+    display: inline-block;
+}
+
+.inputfile:focus + label,
+.inputfile + label:hover {
+    background-color: #143e7c;
+}
+
+.inputfile + label {
+    cursor: pointer; /* "hand" cursor */
+}
+
+.inputfile:focus + label {
+    outline: 1px dotted #1565c0;
+    outline: -webkit-focus-ring-color auto 5px;
+}
+
+/*Colocacion botones laterales carnet alumno*/
+.pad {
+    padding: 0 !important;
+}
+
+.pad2 {
+    padding: 0 !important;
+    position: absolute;
+    right: 5px;
+}
+
+.pad3 {
+    padding: 0 !important;
+    position: absolute;
+    left: 5px;
+}
+
+.imag {
+    margin: 0 !important;
+    margin-top: 3px !important;
+}
+
+/*Icono exportar excel*/
+.excel {
+    background: url("../img/excel.svg") no-repeat center;
+    background-size: contain;
+    vertical-align: middle;
+    width: 25px !important;
+    height: 25px;
+}
+
+/*Icono exportar csv*/
+.csv {
+    background: url("../img/csv2.svg") no-repeat center;
+    background-size: contain;
+    vertical-align: middle;
+    width: 25px !important;
+    height: 25px;
+}
+
+/*Contenedor del chosen que se quita el ancho*/
+.chosen-container {
+    min-width: 100% !important
+}
+
+/*Tabla responsive de las noticias*/
+@media screen and (max-width: 1200px) {
+    #noticiatd, #noticiath {
+        overflow: auto;
+        height: 130px;
+    } #noticiatd, #noticiath {
+        overflow: auto;
+        height: 130px;
+    }
+    .diarioSearch {
+        margin-top: 0;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        flex-wrap: nowrap;
+        min-height: 40vh;
+    }
+    .diarioSearch #divfecha {
+        box-sizing: border-box;
+        margin: 20px;
+        width: calc(1 / 3 * 100% - (1 - 1 / 3) * 10px);
+    }
+
+    .diarioSearch #divhora {
+        box-sizing: border-box;
+        margin: 10px;
+        width: calc(1 / 5 * 100% - (1 - 1 / 3) * 20px);
+    }
+}
+
+.prefooter {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: row;
+    min-height: 15vh;
+    width: 100%;
+}
+@media screen and (min-width: 1200px) {
+    .diarioSearch {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: nowrap;
+        min-height: 25vh;
+
+    }
+
+    .diarioSearch #divfecha {
+        box-sizing: border-box;
+        margin: 20px;
+        width: calc(1 / 3 * 100% - (1 - 1 / 3) * 10px);
+    }
+
+    .diarioSearch #divhora {
+        box-sizing: border-box;
+        margin: 20px;
+        width: calc(1 / 5 * 100% - (1 - 1 / 3) * 20px);
+    }
+}
+
+.prefooter .dataTables_length {
+    margin-left: 20px;
+    margin-right: 10px;
+}
+
+.flash{
+    position: relative;
+    left: 0;
+    top: 0;
+    transform: translate(-30%,-10%);
+    opacity: 0;
+    animation: opacityAnimation 5s;
+}
+
+.flash2{
+    left: 0;
+    top: 0;
+    padding-left: 50px;
+    transform: translate(0%,30%);
+    opacity: 0;
+    animation: opacityAnimation 3s;
+}
+@keyframes opacityAnimation {
+    0%{
+        opacity: 1;
+    }
+    80%{
+        opacity: 1;
+    }
+    100%{
+        opacity: 0;
+    }
+}
+
+
+.logo-inicial {
+    max-height: 70%;
+    max-width: 70%;
+}
